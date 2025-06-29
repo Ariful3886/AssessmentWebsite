@@ -284,10 +284,20 @@
         /* AI Feature Styles */
         .ai-feature-card {
             border: 1px solid var(--primary-color);
+            transition: box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+         .ai-feature-card:hover {
+            transform: translateY(0) scale(1.0);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
         .ai-response {
             min-height: 100px;
             white-space: pre-wrap;
+            background-color: var(--exp-card-bg);
+            border-radius: 1rem;
+            padding: 1rem;
+            color: var(--text-secondary);
+            border: 1px solid var(--card-border);
         }
         .loading-spinner {
             border: 4px solid var(--card-border);
@@ -359,7 +369,7 @@
     <main class="container mx-auto p-4 sm:p-6 lg:p-8 relative z-10">
 
         <!-- ==================== HOME PAGE ==================== -->
-        <div id="page-home" class="page active">
+        <div id="page-home" class="page active space-y-12">
             <div class="card p-8 md:p-12 animate-on-scroll">
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div class="md:col-span-1">
@@ -370,10 +380,37 @@
                         </div>
                     </div>
                     <div class="md:col-span-1 animate-on-scroll delay-200">
-                        <img src="images/home1.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x600/fca5a5/450a0a?text=Image+Not+Found';" class="rounded-2xl shadow-lg w-full h-auto object-cover" style="aspect-ratio: 1 / 1;" alt="Child painting with watercolors">
+                        <img src="https://placehold.co/600x600/fca5a5/450a0a?text=Child+Painting" onerror="this.onerror=null;this.src='https://placehold.co/600x600/fca5a5/450a0a?text=Image+Not+Found';" class="rounded-2xl shadow-lg w-full h-auto object-cover" style="aspect-ratio: 1 / 1;" alt="Child painting with watercolors">
                     </div>
                 </div>
             </div>
+            
+            <!-- ==================== GEMINI AI FEATURE ==================== -->
+            <div class="card p-8 md:p-12 animate-on-scroll ai-feature-card">
+                <div class="text-center mb-8">
+                    <h3 class="playful-title text-4xl md:text-5xl flex items-center justify-center gap-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path><path d="m15.7 15.7-1.4-1.4"></path><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path><path d="M12 22a4.5 4.5 0 0 0 4.5-4.5c0-2.49-2.01-4.5-4.5-4.5s-4.5 2.01-4.5 4.5A4.5 4.5 0 0 0 12 22z"></path></svg>
+                        Ask Gemini AI
+                    </h3>
+                    <p class="mt-2">Need a new idea for a creative activity? Ask Gemini!</p>
+                </div>
+                <div class="max-w-2xl mx-auto">
+                    <div class="space-y-4">
+                        <textarea id="ai-prompt" class="w-full p-4 rounded-xl border-2 transition" style="background-color: var(--exp-card-bg); border-color: var(--card-border); color: var(--text-primary);" rows="4" placeholder="e.g., 'Suggest a simple drama activity for 2-year-olds using household items'"></textarea>
+                        <button id="ai-submit" class="w-full font-semibold px-6 py-4 rounded-full transition-transform active:scale-95 flex items-center justify-center gap-2" style="background-color: var(--primary-container); color: var(--on-primary-container);">
+                            <span id="ai-button-text">Generate Ideas</span>
+                            <div id="ai-spinner" class="loading-spinner w-6 h-6 hidden"></div>
+                        </button>
+                    </div>
+                    <div class="mt-8">
+                        <h4 class="text-2xl font-bold mb-4" style="color: var(--text-primary);">AI Response:</h4>
+                        <div id="ai-response" class="ai-response">
+                           Your generated ideas will appear here...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <!-- ==================== ART PAGE ==================== -->
@@ -386,7 +423,7 @@
                         <p>Art plays a vital role in young children’s creativity by offering open-ended opportunities for exploration, expression, and communication. It helps children represent their ideas and feelings, test possibilities, and solve problems using various media (Boyd & Cutcher, 2015). Engaging in artistic processes promotes imagination, self-confidence, and perseverance as children experiment with materials, colours, and forms. As Cutcher and Boyd (2016) highlight, art encourages collaboration and dialogue, helping children learn from and with others. Through both individual and group art experiences, children build a strong sense of identity and belonging (EYLF Outcomes 1 and 2).</p>
                     </div>
                     <div class="w-full h-full min-h-[250px]">
-                         <img src="images/imgart.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/fed7aa/7c2d12?text=Art+Creativity';" class="rounded-2xl shadow-lg w-full h-full object-cover" alt="Placeholder for Art Creativity">
+                         <img src="https://placehold.co/600x400/fed7aa/7c2d12?text=Art+Creativity" onerror="this.onerror=null;this.src='https://placehold.co/600x400/fed7aa/7c2d12?text=Art+Creativity';" class="rounded-2xl shadow-lg w-full h-full object-cover" alt="Placeholder for Art Creativity">
                     </div>
                 </div>
             </div>
@@ -432,7 +469,7 @@
             <div class="card p-8 md:p-12 animate-on-scroll">
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div class="w-full h-full min-h-[250px] order-last md:order-first">
-                         <img src="images/imgdp.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/fed7aa/7c2d12?text=Drama+Creativity';" class="rounded-2xl shadow-lg w-full h-full object-cover" alt="Placeholder for Drama Creativity">
+                         <img src="https://placehold.co/600x400/fed7aa/7c2d12?text=Drama+Creativity" onerror="this.onerror=null;this.src='https://placehold.co/600x400/fed7aa/7c2d12?text=Drama+Creativity';" class="rounded-2xl shadow-lg w-full h-full object-cover" alt="Placeholder for Drama Creativity">
                     </div>
                     <div>
                         <h3 class="text-3xl font-bold mb-4" style="color: var(--primary-color);">Importance in Facilitating Creativity</h3>
@@ -467,7 +504,7 @@
                 <h3 class="text-4xl font-bold mb-6 text-center" style="color: var(--primary-color);">Here's our Drama Video -</h3>
                 <div class="aspect-w-16 rounded-2xl overflow-hidden shadow-lg">
                     <video controls preload="metadata" class="w-full h-full">
-                        <source src="videos/drama.mp4" type="video/mp4">
+                        <source src="https://storage.googleapis.com/gemini-in-canvas-images/drama.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -487,20 +524,20 @@
                 <div class="mb-16">
                     <h4 class="text-3xl font-semibold mb-8 text-center">Pom-Pom Balls (Age Group: 0-2 years)</h4>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        <img src="images/img1.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img1';" alt="Pom-pom activity 1" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
-                        <img src="images/img2.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img2';" alt="Pom-pom activity 2" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
-                        <img src="images/img3.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img3';" alt="Pom-pom activity 3" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
-                        <img src="images/img4.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img4';" alt="Pom-pom activity 4" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        <img src="https://placehold.co/400x400/fca5a5/450a0a?text=img1" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img1';" alt="Pom-pom activity 1" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        <img src="https://placehold.co/400x400/fca5a5/450a0a?text=img2" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img2';" alt="Pom-pom activity 2" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        <img src="https://placehold.co/400x400/fca5a5/450a0a?text=img3" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img3';" alt="Pom-pom activity 3" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        <img src="https://placehold.co/400x400/fca5a5/450a0a?text=img4" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img4';" alt="Pom-pom activity 4" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
                     </div>
                 </div>
 
                 <div>
                     <h4 class="text-3xl font-semibold mb-8 text-center">Pop Sticks Chicks (Age Group: 2-3 years)</h4>
                      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        <img src="images/img5.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img5';" alt="Pop stick chick activity 1" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
-                        <img src="images/img6.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img6';" alt="Pop stick chick activity 2" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
-                        <img src="images/img7.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img7';" alt="Pop stick chick activity 3" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
-                        <img src="images/img8.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img8';" alt="Pop stick chick activity 4" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        <img src="https://placehold.co/400x400/fca5a5/450a0a?text=img5" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img5';" alt="Pop stick chick activity 1" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        <img src="https://placehold.co/400x400/fca5a5/450a0a?text=img6" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img6';" alt="Pop stick chick activity 2" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        <img src="https://placehold.co/400x400/fca5a5/450a0a?text=img7" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img7';" alt="Pop stick chick activity 3" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        <img src="https://placehold.co/400x400/fca5a5/450a0a?text=img8" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img8';" alt="Pop stick chick activity 4" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
                     </div>
                 </div>
             </div>
@@ -511,20 +548,20 @@
                 <div class="mb-12">
                     <h4 class="text-3xl font-semibold mb-8 text-center">Cliffy Crab Story Play (Age Group: 2-3 years)</h4>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        <img src="images/img9.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img9';" alt="Cliffy crab activity 1" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
-                        <img src="images/img10.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img10';" alt="Cliffy crab activity 2" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
-                        <img src="images/img11.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img11';" alt="Cliffy crab activity 3" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
-                        <img src="images/img12.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img12';" alt="Cliffy crab activity 4" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        <img src="https://placehold.co/400x400/fca5a5/450a0a?text=img9" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img9';" alt="Cliffy crab activity 1" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        <img src="https://placehold.co/400x400/fca5a5/450a0a?text=img10" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img10';" alt="Cliffy crab activity 2" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        <img src="https://placehold.co/400x400/fca5a5/450a0a?text=img11" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img11';" alt="Cliffy crab activity 3" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        <img src="https://placehold.co/400x400/fca5a5/450a0a?text=img12" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img12';" alt="Cliffy crab activity 4" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
                     </div>
                 </div>
 
                 <div>
                     <h4 class="text-3xl font-semibold mb-8 text-center">Game with Cups Role-Play (Age Group: 3-5 years)</h4>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        <img src="images/img13.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img13';" alt="Cups role play activity 1" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
-                        <img src="images/img14.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img14';" alt="Cups role play activity 2" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
-                        <img src="images/img15.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img15';" alt="Cups role play activity 3" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
-                        <img src="images/img16.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img16';" alt="Cups role play activity 4" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        <img src="https://placehold.co/400x400/fca5a5/450a0a?text=img13" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img13';" alt="Cups role play activity 1" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        <img src="https://placehold.co/400x400/fca5a5/450a0a?text=img14" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img14';" alt="Cups role play activity 2" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        <img src="https://placehold.co/400x400/fca5a5/450a0a?text=img15" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img15';" alt="Cups role play activity 3" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        <img src="https://placehold.co/400x400/fca5a5/450a0a?text=img16" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img16';" alt="Cups role play activity 4" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
                     </div>
                 </div>
             </div>
@@ -642,7 +679,78 @@
         </div>
     </footer>
 </div>
+    <script type="module">
+        // This script handles the Gemini API call
+        const aiSubmitBtn = document.getElementById('ai-submit');
+        const aiPrompt = document.getElementById('ai-prompt');
+        const aiResponseDiv = document.getElementById('ai-response');
+        const aiSpinner = document.getElementById('ai-spinner');
+        const aiButtonText = document.getElementById('ai-button-text');
 
+        aiSubmitBtn.addEventListener('click', async () => {
+            const prompt = aiPrompt.value.trim();
+            if (!prompt) {
+                aiResponseDiv.textContent = 'Please enter a prompt first.';
+                return;
+            }
+
+            // Show loading state
+            aiButtonText.classList.add('hidden');
+            aiSpinner.classList.remove('hidden');
+            aiSubmitBtn.disabled = true;
+            aiResponseDiv.textContent = 'Generating...';
+
+            // Prepare the API request
+            const apiKey = ""; // API key will be injected by the environment
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            
+            // Add context to the prompt for better results
+            const fullPrompt = `You are an expert in early childhood education. Based on the following request, provide creative, age-appropriate activity ideas. The request is: "${prompt}"`;
+
+            const payload = {
+                contents: [{
+                    role: "user",
+                    parts: [{ text: fullPrompt }]
+                }]
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API request failed with status ${response.status}`);
+                }
+
+                const result = await response.json();
+                
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    aiResponseDiv.textContent = text;
+                } else {
+                    // Handle cases where the response structure is unexpected or content is missing
+                    aiResponseDiv.textContent = "Sorry, I couldn't generate a response. The AI model might be busy. Please try again later.";
+                     console.error("Unexpected API response structure:", result);
+                }
+
+            } catch (error) {
+                console.error('Error calling Gemini API:', error);
+                aiResponseDiv.textContent = 'An error occurred while fetching ideas. Please check the console for details and try again.';
+            } finally {
+                // Hide loading state
+                aiButtonText.classList.remove('hidden');
+                aiSpinner.classList.add('hidden');
+                aiSubmitBtn.disabled = false;
+            }
+        });
+    </script>
     <script>
         // --- Global Scope Functions ---
         const navIndicator = document.getElementById('nav-indicator');
