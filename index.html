@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creativity in the Early Childhood Curriculum</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lilita+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        /* * ===============================================
+         * ASSESSMENT WEBSITE - PLAYFUL & INTERACTIVE VERSION
+         * ===============================================
+         * This version incorporates a more playful design with an orange accent,
+         * spring-like animations, and a highly polished, responsive UI.
+         *
+         * Key Updates:
+         * 1.  Added Video Section: A video player has been added to the end
+         * of the Drama & Puppetry page.
+         * 2.  Elegant Image Grid: Digital evidence section now features a more
+         * dynamic, masonry-style grid for a fancier look.
+         * 3.  Scroll to Top Button: Added a "Go to Top" button in each page
+         * section for easier navigation.
+         * 4.  Robust JS: All previous fixes, including mobile dark mode and
+         * JS scope, have been maintained.
+         */
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background-color 0.5s ease;
+            overflow-x: hidden;
+        }
+        
+        .site-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        main {
+            flex-grow: 1;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            z-index: -1;
+            border-radius: 50%;
+            filter: blur(120px);
+            transition: background 0.8s ease, opacity 0.8s ease;
+        }
+
+        :root {
+            --bg-color: #fffaf0;
+            --header-bg: rgba(255, 255, 255, 0.6);
+            --header-border: rgba(230, 230, 230, 0.5);
+            --nav-text: #6b4f3a;
+            --text-primary: #2d2620;
+            --text-secondary: #6b4f3a;
+            --primary-color: #f97316;
+            --primary-container: #fed7aa;
+            --on-primary-container: #7c2d12;
+            --card-bg: rgba(255, 251, 254, 0.75);
+            --card-border: rgba(230, 224, 236, 0.8);
+            --exp-card-bg: rgba(255, 237, 213, 0.7);
+            --footer-text: #a0a0a0;
+            --bg-shape-1: linear-gradient(135deg, #fb923c, #f97316);
+            --bg-shape-2: linear-gradient(135deg, #4f46e5, #a855f7);
+            --bg-shape-opacity: 0.3;
+        }
+
+        html.dark {
+            --bg-color: #1c1917;
+            --header-bg: rgba(28, 25, 23, 0.85);
+            --header-border: rgba(60, 60, 60, 0.5);
+            --nav-text: #d6d3d1;
+            --text-primary: #f5f5f4;
+            --text-secondary: #a8a29e;
+            --primary-color: #fb923c;
+            --primary-container: #7c2d12;
+            --on-primary-container: #fed7aa;
+            --card-bg: rgba(41, 37, 36, 0.6);
+            --card-border: rgba(68, 64, 60, 0.8);
+            --exp-card-bg: rgba(68, 64, 60, 0.7);
+            --footer-text: #a8a29e;
+            --bg-shape-1: linear-gradient(135deg, #7c2d12, #9a3412);
+            --bg-shape-2: linear-gradient(135deg, #4338ca, #6b21a8);
+            --bg-shape-opacity: 0.2;
+        }
+
+        body { background-color: var(--bg-color); }
+        body::before { width: 400px; height: 400px; background: var(--bg-shape-1); top: -150px; left: -150px; opacity: var(--bg-shape-opacity); }
+        body::after { width: 500px; height: 500px; background: var(--bg-shape-2); bottom: -200px; right: -200px; opacity: var(--bg-shape-opacity); }
+
+        h1, h2, h3, h4, h5 { color: var(--text-primary); }
+        .playful-title { font-family: 'Lilita One', cursive; }
+        p, label, select, textarea { color: var(--text-secondary); }
+        
+        .nav-item { color: var(--nav-text); }
+        .nav-item.active { background-color: var(--primary-container); color: var(--on-primary-container); font-weight: 600; }
+        
+        .card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-radius: 28px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--card-border);
+            transition: box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .card:hover { 
+            transform: translateY(-10px) scale(1.05); 
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15); 
+        }
+
+        .interactive-sub-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .interactive-sub-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .page { display: none; position: relative; padding-bottom: 80px; } /* Added padding for scroll-top button */
+        .page.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+        
+        .hamburger .line1, .hamburger .line2, .hamburger .line3 {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        .hamburger.toggle .line1 { transform: rotate(-45deg) translate(-5px, 6px); }
+        .hamburger.toggle .line2 { opacity: 0; }
+        .hamburger.toggle .line3 { transform: rotate(45deg) translate(-5px, -6px); }
+        
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        #mobile-menu.open { max-height: 300px; }
+        #mobile-menu .nav-item-mobile {
+            opacity: 0;
+            transform: translateX(-15px);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+            color: var(--nav-text);
+        }
+        #mobile-menu.open .nav-item-mobile {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        #mobile-menu.open .nav-item-mobile:nth-child(1) { transition-delay: 0.1s; }
+        #mobile-menu.open .nav-item-mobile:nth-child(2) { transition-delay: 0.15s; }
+        #mobile-menu.open .nav-item-mobile:nth-child(3) { transition-delay: 0.2s; }
+        #mobile-menu.open .nav-item-mobile:nth-child(4) { transition-delay: 0.25s; }
+        #mobile-menu.open .nav-item-mobile:nth-child(5) { transition-delay: 0.3s; }
+
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); display: none; justify-content: center;
+            align-items: center; z-index: 10000; opacity: 0;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .modal-overlay.visible { display: flex; opacity: 1; }
+        .modal-content {
+            background-color: var(--card-bg); backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px); padding: 2rem; border-radius: 28px;
+            max-width: 90%; width: 700px; max-height: 85vh; overflow-y: auto;
+            position: relative; transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--card-border);
+        }
+        .modal-content::-webkit-scrollbar { width: 8px; }
+        .modal-content::-webkit-scrollbar-track { background: transparent; }
+        .modal-content::-webkit-scrollbar-thumb {
+            background-color: var(--on-primary-container);
+            border-radius: 10px;
+            background-clip: content-box;
+            border: 2px solid transparent;
+        }
+        .modal-overlay.visible .modal-content { transform: scale(1); }
+        .modal-close-btn {
+            position: absolute; top: 1rem; right: 1rem; background: var(--exp-card-bg);
+            border-radius: 50%; border: none; cursor: pointer; padding: 0.5rem;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-secondary); transition: transform 0.2s, background-color 0.2s;
+        }
+        .modal-close-btn:hover { transform: scale(1.1); }
+        
+        .scroll-to-top {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-container);
+            color: var(--on-primary-container);
+            border: none;
+            border-radius: 16px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .aspect-w-16 {
+          position: relative;
+          width: 100%;
+          padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+        }
+
+        .aspect-w-16 > video {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+    </style>
+</head>
+<body class="text-primary">
+
+<div class="site-container">
+    <header class="sticky top-0 z-50 shadow-sm transition-colors duration-500" style="background-color: var(--header-bg); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-bottom: 1px solid var(--header-border);">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <h1 class="text-xl font-bold" style="color: var(--primary-color);">Creative Curriculum</h1>
+                </div>
+                <div class="flex items-center">
+                    <nav class="hidden md:flex items-baseline space-x-2 mr-4 relative">
+                        <div id="nav-indicator" class="absolute h-full rounded-full transition-all duration-300 ease-in-out" style="background-color: var(--primary-container); z-index: -1;"></div>
+                        <a href="#home" class="nav-item px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 active">Home</a>
+                        <a href="#art" class="nav-item px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300">Art</a>
+                        <a href="#drama" class="nav-item px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300">Drama & Puppetry</a>
+                        <a href="#evidence" class="nav-item px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300">Digital Evidence</a>
+                        <a href="#references" class="nav-item px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300">References</a>
+                    </nav>
+                    <button id="theme-toggle" class="p-2 rounded-full transition-colors duration-300" style="color: var(--nav-text)">
+                        <svg id="theme-toggle-dark-icon" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                        <svg id="theme-toggle-light-icon" class="h-5 w-5 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </button>
+                    <div class="md:hidden ml-2">
+                        <button type="button" class="hamburger inline-flex items-center justify-center p-2 rounded-md focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                            <span class="sr-only">Open main menu</span>
+                            <div class="space-y-1.5">
+                                <div class="line1 w-6 h-0.5" style="background-color: var(--nav-text)"></div>
+                                <div class="line2 w-6 h-0.5" style="background-color: var(--nav-text)"></div>
+                                <div class="line3 w-6 h-0.5" style="background-color: var(--nav-text)"></div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="nav-item-mobile block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#art" class="nav-item-mobile block px-3 py-2 rounded-md text-base font-medium">Art</a>
+                <a href="#drama" class="nav-item-mobile block px-3 py-2 rounded-md text-base font-medium">Drama & Puppetry</a>
+                <a href="#evidence" class="nav-item-mobile block px-3 py-2 rounded-md text-base font-medium">Digital Evidence</a>
+                <a href="#references" class="nav-item-mobile block px-3 py-2 rounded-md text-base font-medium">References</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8 relative z-10">
+
+        <!-- ==================== HOME PAGE ==================== -->
+        <div id="page-home" class="page active">
+            <div class="card p-8 md:p-10 animate-on-scroll">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="md:col-span-1">
+                        <h2 class="playful-title text-5xl md:text-6xl mb-6 flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color)"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>Introducing Creativity</h2>
+                        <div class="text-base md:text-lg space-y-4">
+                            <p class="animate-on-scroll delay-100">Creativity is at the heart of early childhood education. It allows children to explore, imagine, experiment, and express themselves in different ways. Creativity is not only about making art or music; it is about how children think, solve problems, and try new ideas. In early learning, creativity happens every day when children play, build, draw, dance, or act out stories. It is through these activities that they make sense of their world and communicate their ideas (Howard & Mayesky, 2022).</p>
+                             <button class="read-more-btn mt-4 font-semibold px-6 py-2 rounded-full transition-transform active:scale-95" style="background-color: var(--primary-container); color: var(--on-primary-container);" data-content-id="home-full">Read More</button>
+                        </div>
+                    </div>
+                    <div class="md:col-span-1 animate-on-scroll delay-200">
+                        <img src="images/home1.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x600/fca5a5/450a0a?text=Image+Not+Found';" class="rounded-2xl shadow-lg w-full h-auto object-cover" style="aspect-ratio: 1 / 1;" alt="Child painting with watercolors">
+                    </div>
+                </div>
+            </div>
+            <button class="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+            </button>
+        </div>
+
+        <!-- ==================== ART PAGE ==================== -->
+        <div id="page-art" class="page space-y-8">
+            <h2 class="playful-title text-5xl md:text-6xl flex items-center gap-3 animate-on-scroll"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color)"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path><path d="m15.7 15.7-1.4-1.4"></path><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path><path d="M12 22a4.5 4.5 0 0 0 4.5-4.5c0-2.49-2.01-4.5-4.5-4.5s-4.5 2.01-4.5 4.5A4.5 4.5 0 0 0 12 22z"></path></svg>The Curriculum of Art</h2>
+            <div class="card p-8 md:p-10 animate-on-scroll">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-4" style="color: var(--primary-color);">Importance of Art in Facilitating Creativity</h3>
+                        <p>Art plays a vital role in young children’s creativity by offering open-ended opportunities for exploration, expression, and communication. It helps children represent their ideas and feelings, test possibilities, and solve problems using various media (Boyd & Cutcher, 2015). Engaging in artistic processes promotes imagination, self-confidence, and perseverance as children experiment with materials, colours, and forms. As Cutcher and Boyd (2016) highlight, art encourages collaboration and dialogue, helping children learn from and with others. Through both individual and group art experiences, children build a strong sense of identity and belonging (EYLF Outcomes 1 and 2).</p>
+                    </div>
+                    <div class="w-full h-full min-h-[250px]">
+                         <img src="images/imgart.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/fed7aa/7c2d12?text=Art+Creativity';" class="rounded-2xl shadow-lg w-full h-full object-cover" alt="Placeholder for Art Creativity">
+                    </div>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card p-8 md:p-10 animate-on-scroll delay-100"><h3 class="text-2xl font-semibold mb-4" style="color: var(--primary-color);">Creativity Theories and Perspectives</h3><p>Art education in early childhood is strongly influenced by constructivist theories and sociocultural perspectives. Vygotsky’s theory of social learning emphasises the importance of interaction, collaboration, and guided participation in creative activities. The Reggio Emilia approach views art as one of the “hundred languages of children,” encouraging multiple forms of expression and meaning-making (Cutcher & Boyd, 2016). Gardner’s theory of multiple intelligences highlights the importance of visual-spatial intelligence, acknowledging children’s capacity to think and communicate through images and design (Howard & Mayesky, 2022). These theories encourage teachers to provide environments and materials that foster curiosity, experimentation, and collaboration.</p></div>
+                <div class="card p-8 md:p-10 animate-on-scroll delay-200"><h3 class="text-2xl font-semibold mb-4" style="color: var(--primary-color);">Resources, Materials, and Digital Technologies</h3><p>To promote creativity in art, teachers can offer a variety of open-ended resources, including paints, pastels, clay, natural materials, fabric scraps, and recycled items (Boyd & Cutcher, 2015). Materials should invite exploration and experimentation rather than prescribe specific outcomes. Teachers can also integrate digital technologies like drawing apps, photography, and digital storytelling tools, enabling children to extend their creative expressions into multimedia formats (Howard & Mayesky, 2022). The key is to balance traditional and digital media, ensuring that all tools support children’s agency and creative intentions rather than limiting their possibilities.</p></div>
+            </div>
+            <div class="card p-8 md:p-10 animate-on-scroll delay-300">
+                <h3 class="text-3xl font-bold mb-6" style="color: var(--primary-color);">Art Learning Experiences</h3>
+                <div class="space-y-12">
+                    <section>
+                        <h4 class="text-3xl font-bold mb-4">Age Group: 0–2 years</h4>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="p-6 rounded-2xl interactive-sub-card" style="background-color: var(--exp-card-bg);"><h5 class="font-bold text-xl mb-2">Pom-Pom Balls</h5><p>Babies discover soft pom-pom balls with their fingers, experiencing the textures, separating colors, and learning to hold. This develops sensory discovery and fine motor skills and encourages curiosity and early creativity (Howard & Mayesky, 2022).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF Outcome 4:</b> Children resource their learning through connecting with materials.</p></div>
+                            <div class="p-6 rounded-2xl interactive-sub-card" style="background-color: var(--exp-card-bg);"><h5 class="font-bold text-xl mb-2">Bunny Face Craft</h5><p>Little bunny faces are made using soft felt, cotton balls, and paper pieces. This fosters early mark-making, shape recognition, and decision-making as they place features (Howard & Mayesky, 2022).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF 4:</b> Children use creativity by experimenting with texture and shape.</p></div>
+                        </div>
+                    </section>
+                    <section>
+                        <h4 class="text-3xl font-bold mb-4">Age Group: 2–3 years</h4>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="p-6 rounded-2xl interactive-sub-card" style="background-color: var(--exp-card-bg);"><h5 class="font-bold text-xl mb-2">Pop stick Chicks</h5><p>Children create chicks using pop sticks, paper, and felt. They play with colour, texture, and shape, exercising fine motor skills and discussing individual design choices (Howard & Mayesky, 2022).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF 4:</b> Children develop creativity and confidence in using art materials.</p></div>
+                            <div class="p-6 rounded-2xl interactive-sub-card" style="background-color: var(--exp-card-bg);"><h5 class="font-bold text-xl mb-2">Cliffy Crab</h5><p>Children construct a crab using colored paper, googly eyes, and glue. They learn to identify shapes and parts and develop coordination and creativity (Howard & Mayesky, 2022).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF 4:</b> Children develop dispositions for learning such as curiosity and creativity.</p></div>
+                            <div class="p-6 rounded-2xl interactive-sub-card" style="background-color: var(--exp-card-bg);"><h5 class="font-bold text-xl mb-2">Rainbow Pop sticks</h5><p>Children create patterns using coloured popsticks, creating rainbows or abstracts. They learn about matching, sorting, and patterning in creative ways (Howard & Mayesky, 2022).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF 4:</b> Children use patterns and symbols to represent ideas.</p></div>
+                        </div>
+                    </section>
+                     <section>
+                        <h4 class="text-3xl font-bold mb-4">Age Group: 3–5 years</h4>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="p-6 rounded-2xl interactive-sub-card" style="background-color: var(--exp-card-bg);"><h5 class="font-bold text-xl mb-2">Fluffy Fish Craft</h5><p>Kids create textured fish using cotton balls, glitter, and colored paper. Kids combine materials and create their own work, sharing ideas through art (Howard & Mayesky, 2022).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF 4:</b> Children communicate ideas through visual arts.</p></div>
+                            <div class="p-6 rounded-2xl interactive-sub-card" style="background-color: var(--exp-card-bg);"><h5 class="font-bold text-xl mb-2">Leaf Caterpillar</h5><p>Children collect leaves and glue them onto card to produce caterpillars. They learn about nature patterns and texture as they construct a creature from nature (Howard & Mayesky, 2022).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF 4:</b> Children use natural materials in imaginative play.</p></div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <button class="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+            </button>
+        </div>
+        
+        <!-- ==================== DRAMA & PUPPETRY PAGE ==================== -->
+        <div id="page-drama" class="page space-y-8">
+            <h2 class="playful-title text-5xl md:text-6xl flex items-center gap-3 animate-on-scroll"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color)"><path d="M2 12a10 10 0 1 1 20 0c0 4.97-3.58 9.1-8.25 9.88"></path><path d="M12 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"></path><path d="M12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path><path d="M12 12a5 5 0 0 0 5 5"></path><path d="M12 2v10"></path></svg>The Curriculum of Drama & Puppetry</h2>
+            <div class="card p-8 md:p-10 animate-on-scroll">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="w-full h-full min-h-[250px] order-last md:order-first">
+                         <img src="images/imgdp.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/fed7aa/7c2d12?text=Drama+Creativity';" class="rounded-2xl shadow-lg w-full h-full object-cover" alt="Placeholder for Drama Creativity">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-4" style="color: var(--primary-color);">Importance in Facilitating Creativity</h3>
+                        <p>Drama and puppetry support young children’s creativity by giving them fun, safe ways to express their thoughts, ideas, and feelings. These activities help children act out real or imagined experiences, explore new ideas, and learn to solve problems. Drama and puppetry build confidence, communication skills, and help children understand their world (Tombak, 2014; Howard & Mayesky, 2022). Children work together, share ideas, and take on different roles. This helps them learn social skills and develop empathy. Drama and puppetry also support language growth as children plan, act out, and talk about their play (ETCH107, 2024).</p>
+                    </div>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card p-8 md:p-10 animate-on-scroll delay-100"><h3 class="text-2xl font-semibold mb-4" style="color: var(--primary-color);">Creativity Theories and Perspectives</h3><p>Drama and puppetry link to Vygotsky’s theory, which highlights that children learn best through social interaction. When children act out ideas or use puppets together, they practise sharing, turn-taking, and problem-solving. The Reggio Emilia approach encourages children to express their ideas in many ways, including through role-play and puppetry — known as the “hundred languages of children” (Anderberg & Kratochvil, 2005). Creative dramatics is focused on the process, helping children build skills to explore, communicate, and understand their world (Anderberg & Kratochvil, 2005). Gardner’s multiple intelligences theory shows drama helps children who learn through movement and social interaction (Howard & Mayesky, 2022).</p></div>
+                <div class="card p-8 md:p-10 animate-on-scroll delay-200"><h3 class="text-2xl font-semibold mb-4" style="color: var(--primary-color);">Resources, Materials, and Digital Technologies</h3><p>Teachers can support drama and puppetry by offering dress-ups, hats, scarves, simple props (like boxes or chairs), and a range of puppets (sock, stick, finger, or hand puppets). These open-ended resources encourage children to create their own stories and characters (Howard & Mayesky, 2022). Teachers can also use storybooks to inspire role-play (Wanerman, 2010). Digital technologies, such as audio recorders or storytelling apps, can help children create and share their own stories, record puppet shows, or explore voices and sounds for characters (Anders, 2021). The key is to provide tools that allow children to lead their play and ideas.</p></div>
+            </div>
+             <div class="card p-8 md:p-10 animate-on-scroll delay-300">
+                <h3 class="text-3xl font-bold mb-6" style="color: var(--primary-color);">Drama & Puppetry Learning Experiences</h3>
+                <div class="space-y-12">
+                     <section>
+                        <h4 class="text-3xl font-bold mb-4">Age Group: 2–3 years</h4>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="p-6 rounded-2xl interactive-sub-card" style="background-color: var(--exp-card-bg);"><h5 class="font-bold text-xl mb-2">Popstick Chicks as Puppets</h5><p>Children utilize popstick chicks as puppets, making chick noises and movements, and telling simple stories about their chicks. This promotes early communication and fantasy (Anders, 2021).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF 5:</b> Children interact verbally and non-verbally to express ideas.</p></div>
+                            <div class="p-6 rounded-2xl interactive-sub-card" style="background-color: var(--exp-card-bg);"><h5 class="font-bold text-xl mb-2">Moo Cow Role-Play</h5><p>Children mimic the behaviors of cows using sounds and movements. They learn role-play by mimicking grazing, mooing, or cow movements. This helps with dramatic expression and awareness of the body (Howard & Mayesky, 2022).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF 4:</b> Learning dispositions are established through imaginative play by children.</p></div>
+                            <div class="p-6 rounded-2xl interactive-sub-card" style="background-color: var(--exp-card-bg);"><h5 class="font-bold text-xl mb-2">Cliffy Crab Story Play</h5><p>Kids imitate crab movements with sideways walking and pinching fingers impersonating claws. They create simple stories of the adventures of the crab, promoting role-play and imagination (Howard & Mayesky, 2022).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF 2:</b> Children are connected with and contribute to their world through collaborative play.</p></div>
+                        </div>
+                    </section>
+                     <section>
+                        <h4 class="text-3xl font-bold mb-4">Age Group: 3–5 years</h4>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="p-6 rounded-2xl interactive-sub-card" style="background-color: var(--exp-card-bg);"><h5 class="font-bold text-xl mb-2">Game with Cups Role-Play</h5><p>Children pretend to use cups in pretend tea party, café, or shop play. Children assume server or customer roles and have conversations and social interactions (Wanerman, 2010).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF 2:</b> Children use role-play to build relationships and connections.</p></div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="card p-8 md:p-10 animate-on-scroll">
+                <h3 class="text-3xl font-bold mb-6 text-center" style="color: var(--primary-color);">Here's our Drama Video -</h3>
+                <div class="aspect-w-16 rounded-2xl overflow-hidden shadow-lg">
+                    <video controls preload="auto">
+                        <source src="videos/drama.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+            <button class="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+            </button>
+        </div>
+
+        <!-- ==================== DIGITAL EVIDENCE PAGE ==================== -->
+        <div id="page-evidence" class="page space-y-8">
+            <h2 class="playful-title text-5xl md:text-6xl flex items-center gap-3 animate-on-scroll"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color)"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>Digital Evidence</h2>
+            
+            <div class="card p-8 md:p-10 animate-on-scroll">
+                <h3 class="text-3xl font-bold mb-6" style="color: var(--primary-color);">Art Section</h3>
+                
+                <div class="mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-center">Pom-Pom Balls (Age Group: 0-2 years)</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                        <img src="images/img1.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img1';" alt="Pom-pom activity 1" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 md:col-span-3 md:row-span-2">
+                        <img src="images/img2.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img2';" alt="Pom-pom activity 2" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 md:col-span-2">
+                        <img src="images/img3.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img3';" alt="Pom-pom activity 3" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        <img src="images/img4.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img4';" alt="Pom-pom activity 4" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-2xl font-semibold mb-4 text-center">Pop Sticks Chicks (Age Group: 2-3 years)</h4>
+                     <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                        <img src="images/img5.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img5';" alt="Pop stick chick activity 1" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 md:col-span-2">
+                        <img src="images/img6.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img6';" alt="Pop stick chick activity 2" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 md:col-span-3 md:row-span-2">
+                        <img src="images/img7.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img7';" alt="Pop stick chick activity 3" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        <img src="images/img8.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img8';" alt="Pop stick chick activity 4" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                    </div>
+                </div>
+            </div>
+
+             <div class="card p-8 md:p-10 animate-on-scroll">
+                <h3 class="text-3xl font-bold mb-6" style="color: var(--primary-color);">Drama & Puppetry Section</h3>
+                
+                <div class="mb-12">
+                    <h4 class="text-2xl font-semibold mb-4 text-center">Cliffy Crab Story Play (Age Group: 2-3 years)</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                        <img src="images/img9.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img9';" alt="Cliffy crab activity 1" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 md:col-span-3 md:row-span-2">
+                        <img src="images/img10.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img10';" alt="Cliffy crab activity 2" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 md:col-span-2">
+                        <img src="images/img11.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img11';" alt="Cliffy crab activity 3" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        <img src="images/img12.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img12';" alt="Cliffy crab activity 4" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-2xl font-semibold mb-4 text-center">Game with Cups Role-Play (Age Group: 3-5 years)</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                        <img src="images/img13.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img13';" alt="Cups role play activity 1" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 md:col-span-2">
+                        <img src="images/img14.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img14';" alt="Cups role play activity 2" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 md:col-span-3 md:row-span-2">
+                        <img src="images/img15.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img15';" alt="Cups role play activity 3" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        <img src="images/img16.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img16';" alt="Cups role play activity 4" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card p-8 md:p-10 animate-on-scroll">
+                <h3 class="text-3xl font-bold mb-4" style="color: var(--primary-color);">Reflections on Practice</h3>
+                <p>The Popstick Chick Puppet Play for 2–3-year-old children worked well since the children were very interactive with the making of chick sounds and playing out the puppets' interactions with each other. They were outspoken in the employment of their voices and enjoyed creating small stories about where the chick was going or doing something. The puppets encouraged even the shy children to join in, facilitating communication development (Anders, 2021).</p>
+                <p class="mt-4">The Game with Cups Role-Play (3–5 years) also worked well. The children enjoyed pretending to shop as customers or serve tea. They used a great deal of language, took turns, and worked together to build their pretend play. It encouraged imagination and social growth (Wanerman, 2010). Modification in the activity of puppets is to provide a small stage or puppet theatre. This could enable the children to condense their narratives and offer more organization for their play. In the course of the cup role-play, some of the children overexcited themselves and had a hard time sharing sometimes. In the future, I would incorporate basic role cards (e.g., server, customer) in order to guide the play. Both activities could also be extended by having the children create their own props.</p>
+            </div>
+            <button class="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+            </button>
+        </div>
+
+        <!-- ==================== REFERENCES PAGE ==================== -->
+        <div id="page-references" class="page">
+            <div class="card p-8 md:p-10 animate-on-scroll">
+                <h2 class="playful-title text-5xl md:text-6xl mb-8 flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color)"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>References</h2>
+                <div class="space-y-6">
+                    
+                    <div class="p-6 rounded-2xl flex flex-col sm:flex-row justify-between sm:items-center gap-4 interactive-sub-card" style="background-color: var(--exp-card-bg);">
+                        <p class="text-sm md:text-base flex-1">Anderberg, S., & Kratochvil, K. (2005). <i>Rationale for creative dramatics and formal theatre in the classroom</i>. The California Arts Project.</p>
+                        <a href="https://www.sjsu.edu/people/kathie.kratochvil/courses/CA177/s0/Rationale-for-Creative-Dramatics.pdf" target="_blank" rel="noopener noreferrer" class="font-semibold px-5 py-2.5 rounded-full transition-transform active:scale-95 whitespace-nowrap" style="background-color: var(--primary-container); color: var(--on-primary-container);">Visit Link</a>
+                    </div>
+
+                    <div class="p-6 rounded-2xl flex flex-col sm:flex-row justify-between sm:items-center gap-4 interactive-sub-card" style="background-color: var(--exp-card-bg);">
+                        <p class="text-sm md:text-base flex-1">Anders, A. (2021). Theories supporting the use of puppets as pedagogical tool with young children. <i>Universal Journal of Educational Research, 9</i>(7), 1359–1368.</p>
+                         <a href="https://doi.org/10.13189/ujer.2021.090701" target="_blank" rel="noopener noreferrer" class="font-semibold px-5 py-2.5 rounded-full transition-transform active:scale-95 whitespace-nowrap" style="background-color: var(--primary-container); color: var(--on-primary-container);">Visit Link</a>
+                    </div>
+                    
+                    <div class="p-6 rounded-2xl flex flex-col sm:flex-row justify-between sm:items-center gap-4 interactive-sub-card" style="background-color: var(--exp-card-bg);">
+                        <p class="text-sm md:text-base flex-1">Boyd, W., & Cutcher, A. (2015). Learning from early childhood philosophy, theory and pedagogy: Inspiring effective art education. <i>Australasian Journal of Early Childhood, 40</i>(1), 91–98.</p>
+                         <a href="https://doi.org/10.1177/183693911504000113" target="_blank" rel="noopener noreferrer" class="font-semibold px-5 py-2.5 rounded-full transition-transform active:scale-95 whitespace-nowrap" style="background-color: var(--primary-container); color: var(--on-primary-container);">Visit Link</a>
+                    </div>
+
+                    <div class="p-6 rounded-2xl flex flex-col sm:flex-row justify-between sm:items-center gap-4 interactive-sub-card" style="background-color: var(--exp-card-bg);">
+                        <p class="text-sm md:text-base flex-1">Cutcher, A., & Boyd, W. (2016). Preschool children, painting and palimpsest: Collaboration as pedagogy, practice and learning. <i>The International Journal of Art & Design Education, 35</i>(1), 43–51.</p>
+                         <a href="https://doi.org/10.1111/jade.12050" target="_blank" rel="noopener noreferrer" class="font-semibold px-5 py-2.5 rounded-full transition-transform active:scale-95 whitespace-nowrap" style="background-color: var(--primary-container); color: var(--on-primary-container);">Visit Link</a>
+                    </div>
+
+                    <div class="p-6 rounded-2xl flex flex-col sm:flex-row justify-between sm:items-center gap-4 interactive-sub-card" style="background-color: var(--exp-card-bg);">
+                        <p class="text-sm md:text-base flex-1">Department of Education, Employment and Workplace Relations [DEEWR]. (2009). <i>Belonging, being and becoming: The Early Years Learning Framework for Australia</i>. Commonwealth of Australia.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl flex flex-col sm:flex-row justify-between sm:items-center gap-4 interactive-sub-card" style="background-color: var(--exp-card-bg);">
+                        <p class="text-sm md:text-base flex-1">Howard, R., & Mayesky, M. (2022). <i>Creative activities and curriculum for young children</i> (12th ed.). Cengage.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl flex flex-col sm:flex-row justify-between sm:items-center gap-4 interactive-sub-card" style="background-color: var(--exp-card-bg);">
+                        <p class="text-sm md:text-base flex-1">Tombak, A. (2014). Importance of drama in pre-school education. <i>Procedia - Social and Behavioral Sciences, 143</i>, 372–378.</p>
+                         <a href="https://doi.org/10.1016/j.sbspro.2014.07.505" target="_blank" rel="noopener noreferrer" class="font-semibold px-5 py-2.5 rounded-full transition-transform active:scale-95 whitespace-nowrap" style="background-color: var(--primary-container); color: var(--on-primary-container);">Visit Link</a>
+                    </div>
+
+                    <div class="p-6 rounded-2xl flex flex-col sm:flex-row justify-between sm:items-center gap-4 interactive-sub-card" style="background-color: var(--exp-card-bg);">
+                        <p class="text-sm md:text-base flex-1">Wanerman, T. (2010). Using story drama with young preschoolers. <i>Young Children, 65</i>(2), 20–28.</p>
+                    </div>
+
+                </div>
+            </div>
+            <button class="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+            </button>
+        </div>
+    </main>
+    
+    <div id="modal" class="modal-overlay">
+        <div id="modal-content-area" class="modal-content"></div>
+    </div>
+
+    <div id="home-full" class="hidden">
+        <h2 class="playful-title text-4xl mb-4">Full Introduction</h2>
+        <div class="text-base md:text-lg space-y-4">
+            <p>Early childhood teachers have a very important role in supporting children’s creativity. Teachers can create rich learning environments where children feel safe to explore and take risks. They can provide open-ended materials, such as paints, blocks, clay, fabrics, puppets, musical instruments, and digital tools. These resources allow children to choose how they want to create and what they want to express. Teachers can also ask open-ended questions like “What do you think will happen next?” or “Can you show me another way to do that?” This helps children think deeply and extend their ideas.</p>
+            <p>The Early Years Learning Framework (EYLF) highlights how creativity supports many learning outcomes. Outcome 4 focuses on children being confident and involved learners. When children are creative, they develop curiosity, problem-solving skills, and the confidence to try new things. Outcome 5 focuses on communication. Creative activities help children share their ideas through drawing, writing, storytelling, drama, movement, and music (DEEWR, 2009). Creativity also supports Outcome 2, where children learn to connect with others and contribute to their world. Group projects, like murals, plays, or musical performances, help children work together and learn from one another.</p>
+            <p>There are many ways teachers can support creativity across different curriculum areas. In art, children use colours, shapes, and textures to show their ideas and feelings. In drama and puppetry, they take on different roles and tell stories. Through movement and music, children explore rhythm, sound, and expression. In language and literacy, they create their own stories, poems, or books.</p>
+            <p>Creativity is also important in mathematics and science. When children build with blocks or explore patterns, they are learning to think creatively. In technologies and engineering, children design, plan, and make things to solve problems. In humanities and social sciences, creativity helps children understand people, places, and cultures. STEM,STEAM, STREAM, and STEMIE approaches bring all these areas together so children can learn through projects that link science, technology, engineering, the arts, and maths.</p>
+            <p>This website will share how teachers can support creativity across all these curriculum areas. Each page will provide simple explanations, learning theories, resources, and clear examples of activities for different age groups. The aim is to help teachers plan creative, fun, and meaningful learning that helps children grow as confident, capable, and imaginative learners.</p>
+        </div>
+    </div>
+
+    <footer class="mt-12" style="background-color: var(--header-bg); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-top: 1px solid var(--header-border);">
+        <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center" style="color: var(--footer-text);">
+            <p>&copy; 2025 Assessment Website Part A</p>
+            <p class="text-sm">Designed for an early childhood education assignment.</p>
+        </div>
+    </footer>
+</div>
+
+    <script>
+        // --- Global Scope Functions ---
+        const navIndicator = document.getElementById('nav-indicator');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const hamburger = document.querySelector('.hamburger');
+
+        function updateNavIndicator(activeLink) {
+            if (!activeLink || !navIndicator) return;
+            navIndicator.style.left = `${activeLink.offsetLeft}px`;
+            navIndicator.style.width = `${activeLink.offsetWidth}px`;
+        }
+
+        function observeElements(elements) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            elements.forEach(el => observer.observe(el));
+        }
+
+        function showPage(pageId, clickedElement) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            const selectedPage = document.getElementById(pageId);
+            if (selectedPage) {
+                selectedPage.classList.add('active');
+                observeElements(selectedPage.querySelectorAll('.animate-on-scroll'));
+            }
+            
+            document.querySelectorAll('.nav-item, .nav-item-mobile').forEach(item => item.classList.remove('active'));
+            
+            if (clickedElement) {
+                const href = clickedElement.getAttribute('href');
+                const desktopLink = document.querySelector(`.nav-item[href="${href}"]`);
+                if (desktopLink) {
+                    desktopLink.classList.add('active');
+                    updateNavIndicator(desktopLink);
+                }
+                const mobileLink = document.querySelector(`.nav-item-mobile[href="${href}"]`);
+                if (mobileLink) mobileLink.classList.add('active');
+            }
+
+            if (mobileMenu.classList.contains('open')) {
+                hamburger.click();
+            }
+            window.scrollTo(0, 0);
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Elements ---
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+            const htmlEl = document.documentElement;
+            const modal = document.getElementById('modal');
+            const modalContentArea = document.getElementById('modal-content-area');
+            
+            // --- Theme Toggle ---
+            if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                htmlEl.classList.add('dark');
+                lightIcon.classList.remove('hidden');
+                darkIcon.classList.add('hidden');
+            } else {
+                lightIcon.classList.add('hidden');
+                darkIcon.classList.remove('hidden');
+            }
+
+            themeToggleBtn?.addEventListener('click', () => {
+                htmlEl.classList.toggle('dark');
+                const isDarkMode = htmlEl.classList.contains('dark');
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                lightIcon.classList.toggle('hidden', !isDarkMode);
+                darkIcon.classList.toggle('hidden', isDarkMode);
+            });
+
+            // --- Mobile Menu ---
+            hamburger?.addEventListener('click', () => {
+                hamburger.classList.toggle('toggle');
+                mobileMenu.classList.toggle('open');
+            });
+
+            // --- Navigation Click Handling ---
+             document.querySelectorAll('a.nav-item, a.nav-item-mobile').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    if(this.getAttribute('href').startsWith('#')) {
+                       e.preventDefault();
+                       const pageId = `page-${this.getAttribute('href').substring(1)}`;
+                       showPage(pageId, this);
+                    }
+                });
+            });
+
+            // --- Modal Logic ---
+            const openModal = (contentId) => {
+                const contentSource = document.getElementById(contentId);
+                if (!contentSource) return;
+                modalContentArea.innerHTML = '';
+                const closeBtn = document.createElement('button');
+                closeBtn.className = 'modal-close-btn';
+                closeBtn.innerHTML = `<span class="material-symbols-outlined">close</span>`;
+                modalContentArea.appendChild(closeBtn);
+                modalContentArea.insertAdjacentHTML('beforeend', contentSource.innerHTML);
+                modal.classList.add('visible');
+                document.body.classList.add('modal-open');
+            };
+
+            const closeModal = () => {
+                modal.classList.remove('visible');
+                document.body.classList.remove('modal-open');
+            };
+
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('.read-more-btn')) {
+                     openModal(e.target.closest('.read-more-btn').dataset.contentId);
+                }
+                if (e.target === modal || e.target.closest('.modal-close-btn')) {
+                    closeModal();
+                }
+            });
+            
+            // --- Initial Load & Resize ---
+            const handleResize = () => {
+                const activeLink = document.querySelector('.nav-item.active');
+                updateNavIndicator(activeLink);
+            };
+
+            const hash = window.location.hash.substring(1);
+            const pageTarget = hash || 'home';
+            showPage(`page-${pageTarget}`, document.querySelector(`.nav-item[href="#${pageTarget}"]`));
+
+            setTimeout(() => {
+                updateNavIndicator(document.querySelector('.nav-item.active'));
+            }, 50);
+
+            window.addEventListener('resize', handleResize);
+        });
+    </script>
+</body>
+</html>
