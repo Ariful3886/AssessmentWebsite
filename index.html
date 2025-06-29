@@ -17,10 +17,10 @@
          * features and exceptionally smooth, 60fps animations.
          *
          * Key Updates:
-         * 1.  ✨ Google AI Integration: Main AI feature on Home. Other pages have
-         * a symbol link that returns to the Home AI feature.
-         * 2.  Optimized 60fps Animations: Top bar navigation now uses a smooth
-         * pill-shaped indicator for a fluid, high-performance experience.
+         * 1.  ✨ Google AI Integration: Full AI feature now on every page with
+         * context-aware prompts and responsive UI.
+         * 2.  Optimized 60fps Animations: All transitions use hardware-accelerated
+         * properties for a fluid, high-performance experience.
          * 3.  Material Design 3 Splash Screen: A beautiful, animated splash
          * screen appears on every refresh.
          * 4.  Extreme Responsiveness & UI Polish: The UI has been meticulously
@@ -312,13 +312,6 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        .ai-symbol-link {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding-top: 2rem;
-            padding-bottom: 2rem;
-        }
     </style>
 </head>
 <body class="loading">
@@ -497,7 +490,7 @@
             <!-- AI Feature Stub -->
             <div class="ai-feature-container" data-page="drama"></div>
             <button class="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
             </button>
         </div>
 
@@ -591,7 +584,7 @@
             <!-- AI Feature Stub -->
             <div class="ai-feature-container" data-page="evidence"></div>
             <button class="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
             </button>
         </div>
 
@@ -688,7 +681,7 @@
             responseDiv.textContent = 'Generating...';
 
             // Prepare the API request
-            const apiKey = ""; // API key will be injected by the environment
+            const apiKey = "AIzaSyAKmgngyibuFXpm-J59L1HxV3gNNZNiQ8c"; 
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
             
             const fullPrompt = `You are an expert in early childhood education. Based on the following request, provide creative, age-appropriate activity ideas. The request is: "${prompt}"`;
@@ -790,73 +783,63 @@
 
             function initializeAiFeature(container) {
                 const page = container.dataset.page;
+                const defaultPrompts = {
+                    home: "Suggest a creative activity for 3-5 year olds that promotes teamwork.",
+                    art: "Give me an idea for an art project for toddlers using recycled materials like cardboard tubes and bottle caps.",
+                    drama: "Suggest a simple drama game for preschoolers that builds confidence and uses animal sounds.",
+                    evidence: "How can I use a tablet to document a child's learning in a creative way during a nature walk?",
+                    references: "Explain Vygotsky's theory of social learning in simple terms for an early childhood educator."
+                };
 
-                if (page === 'home') {
-                    const defaultPrompts = {
-                        home: "Suggest a creative activity for 3-5 year olds that promotes teamwork."
-                    };
-                    const aiCardHTML = `
-                        <div class="card p-6 md:p-12 mt-12 animate-on-scroll ai-feature-card">
-                            <div class="text-center mb-8">
-                                <h3 class="playful-title text-3xl md:text-4xl flex items-center justify-center gap-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path><path d="m15.7 15.7-1.4-1.4"></path><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path><path d="M12 22a4.5 4.5 0 0 0 4.5-4.5c0-2.49-2.01-4.5-4.5-4.5s-4.5 2.01-4.5 4.5A4.5 4.5 0 0 0 12 22z"></path></svg>
-                                    Ask Google AI
-                                </h3>
-                                <p class="mt-2 text-sm md:text-base">Need a new idea? Ask the AI!</p>
-                            </div>
-                            <div class="max-w-2xl mx-auto">
-                                <div class="space-y-4">
-                                    <textarea class="ai-prompt w-full p-4 rounded-xl border-2 transition" style="background-color: var(--exp-card-bg); border-color: var(--card-border); color: var(--text-primary);" rows="4" placeholder="e.g., '${defaultPrompts.home}'"></textarea>
-                                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                        <button class="ai-generate-prompt-btn font-semibold px-4 py-3 rounded-full transition-transform active:scale-95 flex items-center justify-center gap-2" style="background-color: var(--exp-card-bg); color: var(--on-primary-container); border: 1px solid var(--primary-container);">
-                                            <span class="material-symbols-outlined">auto_awesome</span> Idea
-                                        </button>
-                                        <button class="ai-submit-btn font-semibold px-4 py-3 rounded-full transition-transform active:scale-95 flex items-center justify-center gap-2 col-span-1 sm:col-span-2" style="background-color: var(--primary-container); color: var(--on-primary-container);">
-                                            <span class="ai-button-text">Generate Response</span>
-                                            <div class="loading-spinner hidden"></div>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="mt-8">
-                                    <div class="flex justify-between items-center mb-4">
-                                        <h4 class="text-2xl font-bold" style="color: var(--text-primary);">AI Response:</h4>
-                                        <button class="ai-reset-btn p-2 rounded-full transition-colors duration-300 hover:bg-red-200/50" style="color: var(--nav-text);" title="Reset Response">
-                                            <span class="material-symbols-outlined">delete_sweep</span>
-                                        </button>
-                                    </div>
-                                    <div class="ai-response">Your generated ideas will appear here...</div>
-                                </div>
-                            </div>
-                        </div>`;
-                    container.innerHTML = aiCardHTML;
-                    
-                    const aiPrompt = container.querySelector('.ai-prompt');
-                    const aiSubmitBtn = container.querySelector('.ai-submit-btn');
-                    const aiResponseDiv = container.querySelector('.ai-response');
-                    const aiSpinner = container.querySelector('.loading-spinner');
-                    const aiButtonText = container.querySelector('.ai-button-text');
-                    const aiResetBtn = container.querySelector('.ai-reset-btn');
-                    const aiGeneratePromptBtn = container.querySelector('.ai-generate-prompt-btn');
-
-                    aiSubmitBtn.addEventListener('click', () => callGoogleAI(aiPrompt.value, aiResponseDiv, aiSpinner, aiButtonText, aiSubmitBtn));
-                    aiResetBtn.addEventListener('click', () => {
-                        aiPrompt.value = '';
-                        aiResponseDiv.textContent = 'Your generated ideas will appear here...';
-                    });
-                    aiGeneratePromptBtn.addEventListener('click', () => aiPrompt.value = defaultPrompts.home);
-                } else {
-                    const aiSymbolHTML = `
-                        <div class="ai-symbol-link">
-                            <a href="#home" class="nav-ai-link group flex flex-col items-center gap-2 text-center" title="Ask Google AI on Home Page">
-                                <div class="p-4 rounded-full transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg" style="background-color: var(--primary-container);">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-300 group-hover:rotate-12" style="color: var(--on-primary-container);"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path><path d="m15.7 15.7-1.4-1.4"></path><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path><path d="M12 22a4.5 4.5 0 0 0 4.5-4.5c0-2.49-2.01-4.5-4.5-4.5s-4.5 2.01-4.5 4.5A4.5 4.5 0 0 0 12 22z"></path></svg>
-                                </div>
-                                <p class="font-semibold" style="color: var(--on-primary-container);">Ask AI on Home Page</p>
-                            </a>
+                const aiCardHTML = `
+                    <div class="card p-6 md:p-12 mt-12 animate-on-scroll ai-feature-card">
+                        <div class="text-center mb-8">
+                            <h3 class="playful-title text-3xl md:text-4xl flex items-center justify-center gap-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path><path d="m15.7 15.7-1.4-1.4"></path><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path><path d="M12 22a4.5 4.5 0 0 0 4.5-4.5c0-2.49-2.01-4.5-4.5-4.5s-4.5 2.01-4.5 4.5A4.5 4.5 0 0 0 12 22z"></path></svg>
+                                Ask Google AI
+                            </h3>
+                            <p class="mt-2 text-sm md:text-base">Need a new idea for this section? Ask the AI!</p>
                         </div>
-                    `;
-                    container.innerHTML = aiSymbolHTML;
-                }
+                        <div class="max-w-2xl mx-auto">
+                            <div class="space-y-4">
+                                <textarea class="ai-prompt w-full p-4 rounded-xl border-2 transition" style="background-color: var(--exp-card-bg); border-color: var(--card-border); color: var(--text-primary);" rows="4" placeholder="e.g., '${defaultPrompts[page]}'"></textarea>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                    <button class="ai-generate-prompt-btn font-semibold px-4 py-3 rounded-full transition-transform active:scale-95 flex items-center justify-center gap-2" style="background-color: var(--exp-card-bg); color: var(--on-primary-container); border: 1px solid var(--primary-container);">
+                                        <span class="material-symbols-outlined">auto_awesome</span> Idea
+                                    </button>
+                                    <button class="ai-submit-btn font-semibold px-4 py-3 rounded-full transition-transform active:scale-95 flex items-center justify-center gap-2 col-span-1 sm:col-span-2" style="background-color: var(--primary-container); color: var(--on-primary-container);">
+                                        <span class="ai-button-text">Generate Response</span>
+                                        <div class="loading-spinner hidden"></div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mt-8">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h4 class="text-2xl font-bold" style="color: var(--text-primary);">AI Response:</h4>
+                                    <button class="ai-reset-btn p-2 rounded-full transition-colors duration-300 hover:bg-red-200/50" style="color: var(--nav-text);" title="Reset Response">
+                                        <span class="material-symbols-outlined">delete_sweep</span>
+                                    </button>
+                                </div>
+                                <div class="ai-response">Your generated ideas will appear here...</div>
+                            </div>
+                        </div>
+                    </div>`;
+                container.innerHTML = aiCardHTML;
+                
+                const aiPrompt = container.querySelector('.ai-prompt');
+                const aiSubmitBtn = container.querySelector('.ai-submit-btn');
+                const aiResponseDiv = container.querySelector('.ai-response');
+                const aiSpinner = container.querySelector('.loading-spinner');
+                const aiButtonText = container.querySelector('.ai-button-text');
+                const aiResetBtn = container.querySelector('.ai-reset-btn');
+                const aiGeneratePromptBtn = container.querySelector('.ai-generate-prompt-btn');
+
+                aiSubmitBtn.addEventListener('click', () => callGoogleAI(aiPrompt.value, aiResponseDiv, aiSpinner, aiButtonText, aiSubmitBtn));
+                aiResetBtn.addEventListener('click', () => {
+                    aiPrompt.value = '';
+                    aiResponseDiv.textContent = 'Your generated ideas will appear here...';
+                });
+                aiGeneratePromptBtn.addEventListener('click', () => aiPrompt.value = defaultPrompts[page]);
             }
 
             // --- Elements ---
