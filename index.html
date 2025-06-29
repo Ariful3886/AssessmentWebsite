@@ -17,14 +17,14 @@
          * spring-like animations, and a highly polished, responsive UI.
          *
          * Key Updates:
-         * 1.  Updated Reflections: Replaced the "Reflections on Practice"
-         * section with the new, detailed "Critical Reflection" content.
-         * 2.  Elegant Image Grid: Digital evidence section features a dynamic,
-         * masonry-style grid for a fancier look.
-         * 3.  Scroll to Top Button: A "Go to Top" button is present in each
-         * page section for easier navigation.
-         * 4.  Robust JS: All previous fixes, including mobile dark mode and
-         * JS scope, have been maintained.
+         * 1.  Modern UI Refresh: Increased spacing, bolder titles, and refined
+         * layouts for a cleaner, more modern aesthetic.
+         * 2.  Enhanced Readability: The "Critical Reflection" section has been
+         * completely reformatted with distinct cards for better organization.
+         * 3.  Bolder Titles: All section and card titles have been made more
+         * prominent to improve visual hierarchy.
+         * 4.  Robust JS & Layout: All previous fixes, including the sticky
+         * footer and mobile dark mode, have been maintained.
          */
 
         html {
@@ -103,7 +103,11 @@
         body::after { width: 500px; height: 500px; background: var(--bg-shape-2); bottom: -200px; right: -200px; opacity: var(--bg-shape-opacity); }
 
         h1, h2, h3, h4, h5 { color: var(--text-primary); }
-        .playful-title { font-family: 'Lilita One', cursive; }
+        .playful-title { 
+            font-family: 'Lilita One', cursive; 
+            /* UPDATED: Added subtle text shadow for depth */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
         p, label, select, textarea { color: var(--text-secondary); }
         
         .nav-item { color: var(--nav-text); }
@@ -119,7 +123,7 @@
             transition: box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .card:hover { 
-            transform: translateY(-10px) scale(1.05); 
+            transform: translateY(-10px) scale(1.02); 
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15); 
         }
 
@@ -131,9 +135,9 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
 
-        .page { display: none; position: relative; padding-bottom: 80px; } /* Added padding for scroll-top button */
-        .page.active { display: block; animation: fadeIn 0.3s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .page { display: none; position: relative; padding-bottom: 80px; }
+        .page.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
         .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
@@ -286,13 +290,13 @@
 
         <!-- ==================== HOME PAGE ==================== -->
         <div id="page-home" class="page active">
-            <div class="card p-8 md:p-10 animate-on-scroll">
-                <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div class="card p-8 md:p-12 animate-on-scroll">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div class="md:col-span-1">
-                        <h2 class="playful-title text-5xl md:text-6xl mb-6 flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color)"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>Introducing Creativity</h2>
-                        <div class="text-base md:text-lg space-y-4">
+                        <h2 class="playful-title text-5xl md:text-7xl mb-6 flex items-center gap-4"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color)"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>Introducing Creativity</h2>
+                        <div class="text-base md:text-lg space-y-5">
                             <p class="animate-on-scroll delay-100">Creativity is at the heart of early childhood education. It allows children to explore, imagine, experiment, and express themselves in different ways. Creativity is not only about making art or music; it is about how children think, solve problems, and try new ideas. In early learning, creativity happens every day when children play, build, draw, dance, or act out stories. It is through these activities that they make sense of their world and communicate their ideas (Howard & Mayesky, 2022).</p>
-                             <button class="read-more-btn mt-4 font-semibold px-6 py-2 rounded-full transition-transform active:scale-95" style="background-color: var(--primary-container); color: var(--on-primary-container);" data-content-id="home-full">Read More</button>
+                             <button class="read-more-btn mt-4 font-semibold px-6 py-3 rounded-full transition-transform active:scale-95" style="background-color: var(--primary-container); color: var(--on-primary-container);" data-content-id="home-full">Read More</button>
                         </div>
                     </div>
                     <div class="md:col-span-1 animate-on-scroll delay-200">
@@ -306,12 +310,12 @@
         </div>
 
         <!-- ==================== ART PAGE ==================== -->
-        <div id="page-art" class="page space-y-8">
-            <h2 class="playful-title text-5xl md:text-6xl flex items-center gap-3 animate-on-scroll"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color)"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path><path d="m15.7 15.7-1.4-1.4"></path><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path><path d="M12 22a4.5 4.5 0 0 0 4.5-4.5c0-2.49-2.01-4.5-4.5-4.5s-4.5 2.01-4.5 4.5A4.5 4.5 0 0 0 12 22z"></path></svg>The Curriculum of Art</h2>
-            <div class="card p-8 md:p-10 animate-on-scroll">
-                <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div id="page-art" class="page space-y-12">
+            <h2 class="playful-title text-5xl md:text-7xl flex items-center justify-center gap-4 animate-on-scroll"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color)"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path><path d="m15.7 15.7-1.4-1.4"></path><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path><path d="M12 22a4.5 4.5 0 0 0 4.5-4.5c0-2.49-2.01-4.5-4.5-4.5s-4.5 2.01-4.5 4.5A4.5 4.5 0 0 0 12 22z"></path></svg>The Curriculum of Art</h2>
+            <div class="card p-8 md:p-12 animate-on-scroll">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div>
-                        <h3 class="text-2xl font-semibold mb-4" style="color: var(--primary-color);">Importance of Art in Facilitating Creativity</h3>
+                        <h3 class="text-3xl font-bold mb-4" style="color: var(--primary-color);">Importance of Art in Facilitating Creativity</h3>
                         <p>Art plays a vital role in young children’s creativity by offering open-ended opportunities for exploration, expression, and communication. It helps children represent their ideas and feelings, test possibilities, and solve problems using various media (Boyd & Cutcher, 2015). Engaging in artistic processes promotes imagination, self-confidence, and perseverance as children experiment with materials, colours, and forms. As Cutcher and Boyd (2016) highlight, art encourages collaboration and dialogue, helping children learn from and with others. Through both individual and group art experiences, children build a strong sense of identity and belonging (EYLF Outcomes 1 and 2).</p>
                     </div>
                     <div class="w-full h-full min-h-[250px]">
@@ -319,22 +323,22 @@
                     </div>
                 </div>
             </div>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="card p-8 md:p-10 animate-on-scroll delay-100"><h3 class="text-2xl font-semibold mb-4" style="color: var(--primary-color);">Creativity Theories and Perspectives</h3><p>Art education in early childhood is strongly influenced by constructivist theories and sociocultural perspectives. Vygotsky’s theory of social learning emphasises the importance of interaction, collaboration, and guided participation in creative activities. The Reggio Emilia approach views art as one of the “hundred languages of children,” encouraging multiple forms of expression and meaning-making (Cutcher & Boyd, 2016). Gardner’s theory of multiple intelligences highlights the importance of visual-spatial intelligence, acknowledging children’s capacity to think and communicate through images and design (Howard & Mayesky, 2022). These theories encourage teachers to provide environments and materials that foster curiosity, experimentation, and collaboration.</p></div>
-                <div class="card p-8 md:p-10 animate-on-scroll delay-200"><h3 class="text-2xl font-semibold mb-4" style="color: var(--primary-color);">Resources, Materials, and Digital Technologies</h3><p>To promote creativity in art, teachers can offer a variety of open-ended resources, including paints, pastels, clay, natural materials, fabric scraps, and recycled items (Boyd & Cutcher, 2015). Materials should invite exploration and experimentation rather than prescribe specific outcomes. Teachers can also integrate digital technologies like drawing apps, photography, and digital storytelling tools, enabling children to extend their creative expressions into multimedia formats (Howard & Mayesky, 2022). The key is to balance traditional and digital media, ensuring that all tools support children’s agency and creative intentions rather than limiting their possibilities.</p></div>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="card p-8 md:p-10 animate-on-scroll delay-100"><h3 class="text-3xl font-bold mb-4" style="color: var(--primary-color);">Creativity Theories and Perspectives</h3><p>Art education in early childhood is strongly influenced by constructivist theories and sociocultural perspectives. Vygotsky’s theory of social learning emphasises the importance of interaction, collaboration, and guided participation in creative activities. The Reggio Emilia approach views art as one of the “hundred languages of children,” encouraging multiple forms of expression and meaning-making (Cutcher & Boyd, 2016). Gardner’s theory of multiple intelligences highlights the importance of visual-spatial intelligence, acknowledging children’s capacity to think and communicate through images and design (Howard & Mayesky, 2022). These theories encourage teachers to provide environments and materials that foster curiosity, experimentation, and collaboration.</p></div>
+                <div class="card p-8 md:p-10 animate-on-scroll delay-200"><h3 class="text-3xl font-bold mb-4" style="color: var(--primary-color);">Resources, Materials, and Digital Technologies</h3><p>To promote creativity in art, teachers can offer a variety of open-ended resources, including paints, pastels, clay, natural materials, fabric scraps, and recycled items (Boyd & Cutcher, 2015). Materials should invite exploration and experimentation rather than prescribe specific outcomes. Teachers can also integrate digital technologies like drawing apps, photography, and digital storytelling tools, enabling children to extend their creative expressions into multimedia formats (Howard & Mayesky, 2022). The key is to balance traditional and digital media, ensuring that all tools support children’s agency and creative intentions rather than limiting their possibilities.</p></div>
             </div>
-            <div class="card p-8 md:p-10 animate-on-scroll delay-300">
-                <h3 class="text-3xl font-bold mb-6" style="color: var(--primary-color);">Art Learning Experiences</h3>
+            <div class="card p-8 md:p-12 animate-on-scroll delay-300">
+                <h3 class="text-4xl font-bold mb-8 text-center" style="color: var(--primary-color);">Art Learning Experiences</h3>
                 <div class="space-y-12">
                     <section>
-                        <h4 class="text-3xl font-bold mb-4">Age Group: 0–2 years</h4>
+                        <h4 class="text-3xl font-bold mb-6">Age Group: 0–2 years</h4>
                         <div class="grid md:grid-cols-2 gap-8">
                             <div class="p-6 rounded-2xl interactive-sub-card" style="background-color: var(--exp-card-bg);"><h5 class="font-bold text-xl mb-2">Pom-Pom Balls</h5><p>Babies discover soft pom-pom balls with their fingers, experiencing the textures, separating colors, and learning to hold. This develops sensory discovery and fine motor skills and encourages curiosity and early creativity (Howard & Mayesky, 2022).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF Outcome 4:</b> Children resource their learning through connecting with materials.</p></div>
                             <div class="p-6 rounded-2xl interactive-sub-card" style="background-color: var(--exp-card-bg);"><h5 class="font-bold text-xl mb-2">Bunny Face Craft</h5><p>Little bunny faces are made using soft felt, cotton balls, and paper pieces. This fosters early mark-making, shape recognition, and decision-making as they place features (Howard & Mayesky, 2022).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF 4:</b> Children use creativity by experimenting with texture and shape.</p></div>
                         </div>
                     </section>
                     <section>
-                        <h4 class="text-3xl font-bold mb-4">Age Group: 2–3 years</h4>
+                        <h4 class="text-3xl font-bold mb-6">Age Group: 2–3 years</h4>
                         <div class="grid md:grid-cols-2 gap-8">
                             <div class="p-6 rounded-2xl interactive-sub-card" style="background-color: var(--exp-card-bg);"><h5 class="font-bold text-xl mb-2">Pop stick Chicks</h5><p>Children create chicks using pop sticks, paper, and felt. They play with colour, texture, and shape, exercising fine motor skills and discussing individual design choices (Howard & Mayesky, 2022).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF 4:</b> Children develop creativity and confidence in using art materials.</p></div>
                             <div class="p-6 rounded-2xl interactive-sub-card" style="background-color: var(--exp-card-bg);"><h5 class="font-bold text-xl mb-2">Cliffy Crab</h5><p>Children construct a crab using colored paper, googly eyes, and glue. They learn to identify shapes and parts and develop coordination and creativity (Howard & Mayesky, 2022).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF 4:</b> Children develop dispositions for learning such as curiosity and creativity.</p></div>
@@ -342,7 +346,7 @@
                         </div>
                     </section>
                      <section>
-                        <h4 class="text-3xl font-bold mb-4">Age Group: 3–5 years</h4>
+                        <h4 class="text-3xl font-bold mb-6">Age Group: 3–5 years</h4>
                         <div class="grid md:grid-cols-2 gap-8">
                             <div class="p-6 rounded-2xl interactive-sub-card" style="background-color: var(--exp-card-bg);"><h5 class="font-bold text-xl mb-2">Fluffy Fish Craft</h5><p>Kids create textured fish using cotton balls, glitter, and colored paper. Kids combine materials and create their own work, sharing ideas through art (Howard & Mayesky, 2022).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF 4:</b> Children communicate ideas through visual arts.</p></div>
                             <div class="p-6 rounded-2xl interactive-sub-card" style="background-color: var(--exp-card-bg);"><h5 class="font-bold text-xl mb-2">Leaf Caterpillar</h5><p>Children collect leaves and glue them onto card to produce caterpillars. They learn about nature patterns and texture as they construct a creature from nature (Howard & Mayesky, 2022).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF 4:</b> Children use natural materials in imaginative play.</p></div>
@@ -356,28 +360,28 @@
         </div>
         
         <!-- ==================== DRAMA & PUPPETRY PAGE ==================== -->
-        <div id="page-drama" class="page space-y-8">
-            <h2 class="playful-title text-5xl md:text-6xl flex items-center gap-3 animate-on-scroll"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color)"><path d="M2 12a10 10 0 1 1 20 0c0 4.97-3.58 9.1-8.25 9.88"></path><path d="M12 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"></path><path d="M12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path><path d="M12 12a5 5 0 0 0 5 5"></path><path d="M12 2v10"></path></svg>The Curriculum of Drama & Puppetry</h2>
-            <div class="card p-8 md:p-10 animate-on-scroll">
-                <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div id="page-drama" class="page space-y-12">
+            <h2 class="playful-title text-5xl md:text-7xl flex items-center justify-center gap-4 animate-on-scroll"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color)"><path d="M2 12a10 10 0 1 1 20 0c0 4.97-3.58 9.1-8.25 9.88"></path><path d="M12 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"></path><path d="M12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path><path d="M12 12a5 5 0 0 0 5 5"></path><path d="M12 2v10"></path></svg>The Curriculum of Drama & Puppetry</h2>
+            <div class="card p-8 md:p-12 animate-on-scroll">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div class="w-full h-full min-h-[250px] order-last md:order-first">
                          <img src="images/imgdp.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/fed7aa/7c2d12?text=Drama+Creativity';" class="rounded-2xl shadow-lg w-full h-full object-cover" alt="Placeholder for Drama Creativity">
                     </div>
                     <div>
-                        <h3 class="text-2xl font-semibold mb-4" style="color: var(--primary-color);">Importance in Facilitating Creativity</h3>
+                        <h3 class="text-3xl font-bold mb-4" style="color: var(--primary-color);">Importance in Facilitating Creativity</h3>
                         <p>Drama and puppetry support young children’s creativity by giving them fun, safe ways to express their thoughts, ideas, and feelings. These activities help children act out real or imagined experiences, explore new ideas, and learn to solve problems. Drama and puppetry build confidence, communication skills, and help children understand their world (Tombak, 2014; Howard & Mayesky, 2022). Children work together, share ideas, and take on different roles. This helps them learn social skills and develop empathy. Drama and puppetry also support language growth as children plan, act out, and talk about their play (ETCH107, 2024).</p>
                     </div>
                 </div>
             </div>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="card p-8 md:p-10 animate-on-scroll delay-100"><h3 class="text-2xl font-semibold mb-4" style="color: var(--primary-color);">Creativity Theories and Perspectives</h3><p>Drama and puppetry link to Vygotsky’s theory, which highlights that children learn best through social interaction. When children act out ideas or use puppets together, they practise sharing, turn-taking, and problem-solving. The Reggio Emilia approach encourages children to express their ideas in many ways, including through role-play and puppetry — known as the “hundred languages of children” (Anderberg & Kratochvil, 2005). Creative dramatics is focused on the process, helping children build skills to explore, communicate, and understand their world (Anderberg & Kratochvil, 2005). Gardner’s multiple intelligences theory shows drama helps children who learn through movement and social interaction (Howard & Mayesky, 2022).</p></div>
-                <div class="card p-8 md:p-10 animate-on-scroll delay-200"><h3 class="text-2xl font-semibold mb-4" style="color: var(--primary-color);">Resources, Materials, and Digital Technologies</h3><p>Teachers can support drama and puppetry by offering dress-ups, hats, scarves, simple props (like boxes or chairs), and a range of puppets (sock, stick, finger, or hand puppets). These open-ended resources encourage children to create their own stories and characters (Howard & Mayesky, 2022). Teachers can also use storybooks to inspire role-play (Wanerman, 2010). Digital technologies, such as audio recorders or storytelling apps, can help children create and share their own stories, record puppet shows, or explore voices and sounds for characters (Anders, 2021). The key is to provide tools that allow children to lead their play and ideas.</p></div>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="card p-8 md:p-10 animate-on-scroll delay-100"><h3 class="text-3xl font-bold mb-4" style="color: var(--primary-color);">Creativity Theories and Perspectives</h3><p>Drama and puppetry link to Vygotsky’s theory, which highlights that children learn best through social interaction. When children act out ideas or use puppets together, they practise sharing, turn-taking, and problem-solving. The Reggio Emilia approach encourages children to express their ideas in many ways, including through role-play and puppetry — known as the “hundred languages of children” (Anderberg & Kratochvil, 2005). Creative dramatics is focused on the process, helping children build skills to explore, communicate, and understand their world (Anderberg & Kratochvil, 2005). Gardner’s multiple intelligences theory shows drama helps children who learn through movement and social interaction (Howard & Mayesky, 2022).</p></div>
+                <div class="card p-8 md:p-10 animate-on-scroll delay-200"><h3 class="text-3xl font-bold mb-4" style="color: var(--primary-color);">Resources, Materials, and Digital Technologies</h3><p>Teachers can support drama and puppetry by offering dress-ups, hats, scarves, simple props (like boxes or chairs), and a range of puppets (sock, stick, finger, or hand puppets). These open-ended resources encourage children to create their own stories and characters (Howard & Mayesky, 2022). Teachers can also use storybooks to inspire role-play (Wanerman, 2010). Digital technologies, such as audio recorders or storytelling apps, can help children create and share their own stories, record puppet shows, or explore voices and sounds for characters (Anders, 2021). The key is to provide tools that allow children to lead their play and ideas.</p></div>
             </div>
-             <div class="card p-8 md:p-10 animate-on-scroll delay-300">
-                <h3 class="text-3xl font-bold mb-6" style="color: var(--primary-color);">Drama & Puppetry Learning Experiences</h3>
+             <div class="card p-8 md:p-12 animate-on-scroll delay-300">
+                <h3 class="text-4xl font-bold mb-8 text-center" style="color: var(--primary-color);">Drama & Puppetry Learning Experiences</h3>
                 <div class="space-y-12">
                      <section>
-                        <h4 class="text-3xl font-bold mb-4">Age Group: 2–3 years</h4>
+                        <h4 class="text-3xl font-bold mb-6">Age Group: 2–3 years</h4>
                         <div class="grid md:grid-cols-2 gap-8">
                             <div class="p-6 rounded-2xl interactive-sub-card" style="background-color: var(--exp-card-bg);"><h5 class="font-bold text-xl mb-2">Popstick Chicks as Puppets</h5><p>Children utilize popstick chicks as puppets, making chick noises and movements, and telling simple stories about their chicks. This promotes early communication and fantasy (Anders, 2021).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF 5:</b> Children interact verbally and non-verbally to express ideas.</p></div>
                             <div class="p-6 rounded-2xl interactive-sub-card" style="background-color: var(--exp-card-bg);"><h5 class="font-bold text-xl mb-2">Moo Cow Role-Play</h5><p>Children mimic the behaviors of cows using sounds and movements. They learn role-play by mimicking grazing, mooing, or cow movements. This helps with dramatic expression and awareness of the body (Howard & Mayesky, 2022).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF 4:</b> Learning dispositions are established through imaginative play by children.</p></div>
@@ -385,17 +389,17 @@
                         </div>
                     </section>
                      <section>
-                        <h4 class="text-3xl font-bold mb-4">Age Group: 3–5 years</h4>
+                        <h4 class="text-3xl font-bold mb-6">Age Group: 3–5 years</h4>
                         <div class="grid md:grid-cols-2 gap-8">
                             <div class="p-6 rounded-2xl interactive-sub-card" style="background-color: var(--exp-card-bg);"><h5 class="font-bold text-xl mb-2">Game with Cups Role-Play</h5><p>Children pretend to use cups in pretend tea party, café, or shop play. Children assume server or customer roles and have conversations and social interactions (Wanerman, 2010).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF 2:</b> Children use role-play to build relationships and connections.</p></div>
                         </div>
                     </section>
                 </div>
             </div>
-            <div class="card p-8 md:p-10 animate-on-scroll">
-                <h3 class="text-3xl font-bold mb-6 text-center" style="color: var(--primary-color);">Here's our Drama Video -</h3>
+            <div class="card p-8 md:p-12 animate-on-scroll">
+                <h3 class="text-4xl font-bold mb-6 text-center" style="color: var(--primary-color);">Here's our Drama Video -</h3>
                 <div class="aspect-w-16 rounded-2xl overflow-hidden shadow-lg">
-                    <video controls preload="auto">
+                    <video controls preload="metadata" class="w-full h-full">
                         <source src="videos/drama.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -407,14 +411,14 @@
         </div>
 
         <!-- ==================== DIGITAL EVIDENCE PAGE ==================== -->
-        <div id="page-evidence" class="page space-y-8">
-            <h2 class="playful-title text-5xl md:text-6xl flex items-center gap-3 animate-on-scroll"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color)"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>Digital Evidence</h2>
+        <div id="page-evidence" class="page space-y-12">
+            <h2 class="playful-title text-5xl md:text-7xl flex items-center justify-center gap-4 animate-on-scroll"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color)"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>Digital Evidence</h2>
             
-            <div class="card p-8 md:p-10 animate-on-scroll">
-                <h3 class="text-3xl font-bold mb-6" style="color: var(--primary-color);">Art Section</h3>
+            <div class="card p-8 md:p-12 animate-on-scroll">
+                <h3 class="text-4xl font-bold mb-8 text-center" style="color: var(--primary-color);">Art Section</h3>
                 
-                <div class="mb-12">
-                    <h4 class="text-2xl font-semibold mb-4 text-center">Pom-Pom Balls (Age Group: 0-2 years)</h4>
+                <div class="mb-16">
+                    <h4 class="text-3xl font-semibold mb-6 text-center">Pom-Pom Balls (Age Group: 0-2 years)</h4>
                     <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
                         <img src="images/img1.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img1';" alt="Pom-pom activity 1" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 md:col-span-3 md:row-span-2">
                         <img src="images/img2.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img2';" alt="Pom-pom activity 2" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 md:col-span-2">
@@ -424,7 +428,7 @@
                 </div>
 
                 <div>
-                    <h4 class="text-2xl font-semibold mb-4 text-center">Pop Sticks Chicks (Age Group: 2-3 years)</h4>
+                    <h4 class="text-3xl font-semibold mb-6 text-center">Pop Sticks Chicks (Age Group: 2-3 years)</h4>
                      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
                         <img src="images/img5.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img5';" alt="Pop stick chick activity 1" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 md:col-span-2">
                         <img src="images/img6.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img6';" alt="Pop stick chick activity 2" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 md:col-span-3 md:row-span-2">
@@ -434,11 +438,11 @@
                 </div>
             </div>
 
-             <div class="card p-8 md:p-10 animate-on-scroll">
-                <h3 class="text-3xl font-bold mb-6" style="color: var(--primary-color);">Drama & Puppetry Section</h3>
+             <div class="card p-8 md:p-12 animate-on-scroll">
+                <h3 class="text-4xl font-bold mb-8 text-center" style="color: var(--primary-color);">Drama & Puppetry Section</h3>
                 
                 <div class="mb-12">
-                    <h4 class="text-2xl font-semibold mb-4 text-center">Cliffy Crab Story Play (Age Group: 2-3 years)</h4>
+                    <h4 class="text-3xl font-semibold mb-6 text-center">Cliffy Crab Story Play (Age Group: 2-3 years)</h4>
                     <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
                         <img src="images/img9.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img9';" alt="Cliffy crab activity 1" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 md:col-span-3 md:row-span-2">
                         <img src="images/img10.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img10';" alt="Cliffy crab activity 2" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 md:col-span-2">
@@ -448,7 +452,7 @@
                 </div>
 
                 <div>
-                    <h4 class="text-2xl font-semibold mb-4 text-center">Game with Cups Role-Play (Age Group: 3-5 years)</h4>
+                    <h4 class="text-3xl font-semibold mb-6 text-center">Game with Cups Role-Play (Age Group: 3-5 years)</h4>
                     <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
                         <img src="images/img13.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img13';" alt="Cups role play activity 1" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 md:col-span-2">
                         <img src="images/img14.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fca5a5/450a0a?text=img14';" alt="Cups role play activity 2" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 md:col-span-3 md:row-span-2">
@@ -458,36 +462,36 @@
                 </div>
             </div>
             
-            <div class="card p-8 md:p-10 animate-on-scroll">
-                <h3 class="text-3xl font-bold mb-4" style="color: var(--primary-color);">Critical Reflection</h3>
-                <div class="space-y-6">
+            <div class="card p-8 md:p-12 animate-on-scroll">
+                <h3 class="text-4xl font-bold mb-8 text-center" style="color: var(--primary-color);">Critical Reflection</h3>
+                <div class="space-y-10">
                     <div>
-                        <h4 class="text-2xl font-semibold mb-2">ART</h4>
-                        <div class="space-y-4 pl-4 border-l-2" style="border-color: var(--primary-color);">
+                        <h4 class="text-3xl font-bold mb-4">ART</h4>
+                        <div class="space-y-8 pl-6 border-l-4" style="border-color: var(--primary-color);">
                             <div>
-                                <h5 class="font-bold text-xl mb-2">Popstick Chick Puppet Play (2–3 years)</h5>
-                                <p>The Popstick Chick Puppet Play worked well because the children were eager to use their puppets in storytelling. They made chick sounds, moved the puppets around, and created simple stories about what their chick was doing. The activity encouraged children to use their voices, explore character roles, and build confidence in sharing ideas (Anders, 2021). Even children who were usually quiet became more involved, showing the activity’s value for communication development.</p>
-                                <p class="mt-2">One improvement would be to provide a small puppet theatre or stage. This would give the children a space to focus their storytelling and help organise their play. I would also allow more time for children to plan and practise their stories before performing them for others.</p>
+                                <h5 class="font-bold text-2xl mb-2">Popstick Chick Puppet Play (2–3 years)</h5>
+                                <p class="mb-3">The Popstick Chick Puppet Play worked well because the children were eager to use their puppets in storytelling. They made chick sounds, moved the puppets around, and created simple stories about what their chick was doing. The activity encouraged children to use their voices, explore character roles, and build confidence in sharing ideas (Anders, 2021). Even children who were usually quiet became more involved, showing the activity’s value for communication development.</p>
+                                <p>One improvement would be to provide a small puppet theatre or stage. This would give the children a space to focus their storytelling and help organise their play. I would also allow more time for children to plan and practise their stories before performing them for others.</p>
                             </div>
                             <div>
-                                <h5 class="font-bold text-xl mb-2">Pom-Pom Balls (0–2 years)</h5>
-                                <p>The Pom-Pom Balls activity worked well because the babies were very engaged in touching, picking up, and exploring the soft pom-poms. They showed curiosity and used their hands to grasp and move the pom-poms, which supported sensory learning and fine motor development (Howard & Mayesky, 2022).</p>
-                                <p class="mt-2">One improvement would be to introduce small containers or baskets so babies could practise filling, emptying, and transferring the pom-poms. This would extend the activity and give more variety, keeping the babies interested for longer. I would also add simple language or songs about colours and textures to support communication.</p>
+                                <h5 class="font-bold text-2xl mb-2">Pom-Pom Balls (0–2 years)</h5>
+                                <p class="mb-3">The Pom-Pom Balls activity worked well because the babies were very engaged in touching, picking up, and exploring the soft pom-poms. They showed curiosity and used their hands to grasp and move the pom-poms, which supported sensory learning and fine motor development (Howard & Mayesky, 2022).</p>
+                                <p>One improvement would be to introduce small containers or baskets so babies could practise filling, emptying, and transferring the pom-poms. This would extend the activity and give more variety, keeping the babies interested for longer. I would also add simple language or songs about colours and textures to support communication.</p>
                             </div>
                         </div>
                     </div>
                     <div>
-                        <h4 class="text-2xl font-semibold mb-2">Drama and puppetry</h4>
-                        <div class="space-y-4 pl-4 border-l-2" style="border-color: var(--primary-color);">
+                        <h4 class="text-3xl font-bold mb-4">Drama and puppetry</h4>
+                        <div class="space-y-8 pl-6 border-l-4" style="border-color: var(--primary-color);">
                             <div>
-                                <h5 class="font-bold text-xl mb-2">Cliffy Crab Story Play (2–3 years)</h5>
-                                <p>The Cliffy Crab Story Play went well because the children enjoyed moving like crabs, using their hands as pincers and walking sideways. They showed imagination by creating little stories about what the crab was doing and where it was going. The activity encouraged children to work together, take turns, and use language to share ideas (Howard & Mayesky, 2022).</p>
-                                <p class="mt-2">One thing I would improve is to provide simple props, like blue fabric for the sea or shells to inspire more storytelling ideas. Next time, I would also encourage the children to act out a shared story as a group, helping to build collaboration and shared meaning.</p>
+                                <h5 class="font-bold text-2xl mb-2">Cliffy Crab Story Play (2–3 years)</h5>
+                                <p class="mb-3">The Cliffy Crab Story Play went well because the children enjoyed moving like crabs, using their hands as pincers and walking sideways. They showed imagination by creating little stories about what the crab was doing and where it was going. The activity encouraged children to work together, take turns, and use language to share ideas (Howard & Mayesky, 2022).</p>
+                                <p>One thing I would improve is to provide simple props, like blue fabric for the sea or shells to inspire more storytelling ideas. Next time, I would also encourage the children to act out a shared story as a group, helping to build collaboration and shared meaning.</p>
                             </div>
                             <div>
-                                <h5 class="font-bold text-xl mb-2">Game with Cups Role-Play (3–5 years)</h5>
-                                <p>The Game with Cups Role-Play was successful because the children enjoyed pretending to serve tea or act as customers. They showed imagination, used rich language, and worked together to build their play scenes (Wanerman, 2010). The activity supported social development, as children practised turn-taking and negotiating roles during the play.</p>
-                                <p class="mt-2">To improve this experience, I would add simple role cards (e.g., customer, server) to give clearer guidance and reduce moments when children became too excited or found it hard to share. I would also offer more props (like plates or menus) to help extend the pretend scenarios and encourage deeper storytelling.</p>
+                                <h5 class="font-bold text-2xl mb-2">Game with Cups Role-Play (3–5 years)</h5>
+                                <p class="mb-3">The Game with Cups Role-Play was successful because the children enjoyed pretending to serve tea or act as customers. They showed imagination, used rich language, and worked together to build their play scenes (Wanerman, 2010). The activity supported social development, as children practised turn-taking and negotiating roles during the play.</p>
+                                <p>To improve this experience, I would add simple role cards (e.g., customer, server) to give clearer guidance and reduce moments when children became too excited or found it hard to share. I would also offer more props (like plates or menus) to help extend the pretend scenarios and encourage deeper storytelling.</p>
                             </div>
                         </div>
                     </div>
@@ -500,8 +504,8 @@
 
         <!-- ==================== REFERENCES PAGE ==================== -->
         <div id="page-references" class="page">
-            <div class="card p-8 md:p-10 animate-on-scroll">
-                <h2 class="playful-title text-5xl md:text-6xl mb-8 flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color)"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>References</h2>
+            <div class="card p-8 md:p-12 animate-on-scroll">
+                <h2 class="playful-title text-5xl md:text-7xl mb-10 text-center"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block" style="color: var(--primary-color)"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg> References</h2>
                 <div class="space-y-6">
                     
                     <div class="p-6 rounded-2xl flex flex-col sm:flex-row justify-between sm:items-center gap-4 interactive-sub-card" style="background-color: var(--exp-card-bg);">
