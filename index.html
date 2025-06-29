@@ -11,19 +11,17 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
         /* * ===============================================
-         * ASSESSMENT WEBSITE - AI ENHANCED & FINAL POLISHED VERSION
+         * ASSESSMENT WEBSITE - FINAL POLISHED VERSION
          * ===============================================
-         * This version incorporates final professional touches, including AI-powered
-         * features and exceptionally smooth, 60fps animations.
+         * This version incorporates final professional touches, including
+         * exceptionally smooth, 60fps animations.
          *
          * Key Updates:
-         * 1.  ✨ Google AI Integration: Full AI feature now on every page with
-         * context-aware prompts and responsive UI.
-         * 2.  Optimized 60fps Animations: All transitions use hardware-accelerated
+         * 1.  Optimized 60fps Animations: All transitions use hardware-accelerated
          * properties for a fluid, high-performance experience.
-         * 3.  Material Design 3 Splash Screen: A beautiful, animated splash
+         * 2.  Material Design 3 Splash Screen: A beautiful, animated splash
          * screen appears on every refresh.
-         * 4.  Extreme Responsiveness & UI Polish: The UI has been meticulously
+         * 3.  Extreme Responsiveness & UI Polish: The UI has been meticulously
          * adjusted for all screen sizes with a clean, modern aesthetic.
          */
 
@@ -281,37 +279,6 @@
             60% { transform: scale(1.1); opacity: 1; }
             100% { transform: scale(1); opacity: 1; }
         }
-        
-        /* AI Feature Styles */
-        .ai-feature-card {
-            border: 1px solid var(--primary-color);
-            transition: box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-         .ai-feature-card:hover {
-            transform: translateY(0) scale(1.0);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        }
-        .ai-response {
-            min-height: 100px;
-            white-space: pre-wrap;
-            background-color: var(--exp-card-bg);
-            border-radius: 1rem;
-            padding: 1rem;
-            color: var(--text-secondary);
-            border: 1px solid var(--card-border);
-        }
-        .loading-spinner {
-            border: 4px solid var(--card-border);
-            border-top: 4px solid var(--primary-color);
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
     </style>
 </head>
 <body class="loading">
@@ -385,8 +352,6 @@
                     </div>
                 </div>
             </div>
-            <!-- AI Feature Stub -->
-            <div class="ai-feature-container" data-page="home"></div>
         </div>
 
         <!-- ==================== ART PAGE ==================== -->
@@ -434,10 +399,8 @@
                     </section>
                 </div>
             </div>
-            <!-- AI Feature Stub -->
-            <div class="ai-feature-container" data-page="art"></div>
             <button class="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
             </button>
         </div>
         
@@ -487,8 +450,6 @@
                     </video>
                 </div>
             </div>
-            <!-- AI Feature Stub -->
-            <div class="ai-feature-container" data-page="drama"></div>
             <button class="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
             </button>
@@ -581,8 +542,6 @@
                     </div>
                 </div>
             </div>
-            <!-- AI Feature Stub -->
-            <div class="ai-feature-container" data-page="evidence"></div>
             <button class="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
             </button>
@@ -633,8 +592,6 @@
 
                 </div>
             </div>
-            <!-- AI Feature Stub -->
-            <div class="ai-feature-container" data-page="references"></div>
             <button class="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
             </button>
@@ -664,70 +621,8 @@
     </footer>
 </div>
     
-    <script type="module">
-        // This script is treated as a module, allowing top-level await.
-        // It handles the Google AI API calls and feature initialization.
-
-        async function callGoogleAI(prompt, responseDiv, spinner, buttonText, submitButton) {
-            if (!prompt) {
-                responseDiv.textContent = 'Please enter a prompt first.';
-                return;
-            }
-
-            // Show loading state
-            buttonText.classList.add('hidden');
-            spinner.classList.remove('hidden');
-            submitButton.disabled = true;
-            responseDiv.textContent = 'Generating...';
-
-            // Prepare the API request
-            const apiKey = "AIzaSyAKmgngyibuFXpm-J59L1HxV3gNNZNiQ8c"; 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-            
-            const fullPrompt = `You are an expert in early childhood education. Based on the following request, provide creative, age-appropriate activity ideas. The request is: "${prompt}"`;
-
-            const payload = {
-                contents: [{
-                    role: "user",
-                    parts: [{ text: fullPrompt }]
-                }]
-            };
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    const errorBody = await response.json();
-                    console.error('API Error Response:', errorBody);
-                    throw new Error(`API request failed with status ${response.status}: ${errorBody.error?.message || 'Unknown error'}`);
-                }
-
-                const result = await response.json();
-                
-                if (result.candidates && result.candidates[0]?.content?.parts[0]?.text) {
-                    responseDiv.textContent = result.candidates[0].content.parts[0].text;
-                } else {
-                    responseDiv.textContent = "Sorry, I couldn't generate a response. The AI model might be busy or the response was empty. Please try again later.";
-                    console.error("Unexpected API response structure:", result);
-                }
-
-            } catch (error) {
-                console.error('Error calling Google AI API:', error);
-                responseDiv.textContent = 'An error occurred while fetching ideas. Please check the console for details and try again.';
-            } finally {
-                // Hide loading state
-                buttonText.classList.remove('hidden');
-                spinner.classList.add('hidden');
-                submitButton.disabled = false;
-            }
-        }
-
-        // --- Main DOMContentLoaded Event Listener ---
-        // This ensures the DOM is fully loaded before scripts run.
+    <script>
+        // This script handles all the site's interactivity.
         document.addEventListener('DOMContentLoaded', () => {
             
             // --- Global Scope Functions & Variables ---
@@ -781,67 +676,6 @@
                 window.scrollTo({top: 0, behavior: 'smooth'});
             }
 
-            function initializeAiFeature(container) {
-                const page = container.dataset.page;
-                const defaultPrompts = {
-                    home: "Suggest a creative activity for 3-5 year olds that promotes teamwork.",
-                    art: "Give me an idea for an art project for toddlers using recycled materials like cardboard tubes and bottle caps.",
-                    drama: "Suggest a simple drama game for preschoolers that builds confidence and uses animal sounds.",
-                    evidence: "How can I use a tablet to document a child's learning in a creative way during a nature walk?",
-                    references: "Explain Vygotsky's theory of social learning in simple terms for an early childhood educator."
-                };
-
-                const aiCardHTML = `
-                    <div class="card p-6 md:p-12 mt-12 animate-on-scroll ai-feature-card">
-                        <div class="text-center mb-8">
-                            <h3 class="playful-title text-3xl md:text-4xl flex items-center justify-center gap-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path><path d="m15.7 15.7-1.4-1.4"></path><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path><path d="M12 22a4.5 4.5 0 0 0 4.5-4.5c0-2.49-2.01-4.5-4.5-4.5s-4.5 2.01-4.5 4.5A4.5 4.5 0 0 0 12 22z"></path></svg>
-                                Ask Google AI
-                            </h3>
-                            <p class="mt-2 text-sm md:text-base">Need a new idea for this section? Ask the AI!</p>
-                        </div>
-                        <div class="max-w-2xl mx-auto">
-                            <div class="space-y-4">
-                                <textarea class="ai-prompt w-full p-4 rounded-xl border-2 transition" style="background-color: var(--exp-card-bg); border-color: var(--card-border); color: var(--text-primary);" rows="4" placeholder="e.g., '${defaultPrompts[page]}'"></textarea>
-                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                    <button class="ai-generate-prompt-btn font-semibold px-4 py-3 rounded-full transition-transform active:scale-95 flex items-center justify-center gap-2" style="background-color: var(--exp-card-bg); color: var(--on-primary-container); border: 1px solid var(--primary-container);">
-                                        <span class="material-symbols-outlined">auto_awesome</span> Idea
-                                    </button>
-                                    <button class="ai-submit-btn font-semibold px-4 py-3 rounded-full transition-transform active:scale-95 flex items-center justify-center gap-2 col-span-1 sm:col-span-2" style="background-color: var(--primary-container); color: var(--on-primary-container);">
-                                        <span class="ai-button-text">Generate Response</span>
-                                        <div class="loading-spinner hidden"></div>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="mt-8">
-                                <div class="flex justify-between items-center mb-4">
-                                    <h4 class="text-2xl font-bold" style="color: var(--text-primary);">AI Response:</h4>
-                                    <button class="ai-reset-btn p-2 rounded-full transition-colors duration-300 hover:bg-red-200/50" style="color: var(--nav-text);" title="Reset Response">
-                                        <span class="material-symbols-outlined">delete_sweep</span>
-                                    </button>
-                                </div>
-                                <div class="ai-response">Your generated ideas will appear here...</div>
-                            </div>
-                        </div>
-                    </div>`;
-                container.innerHTML = aiCardHTML;
-                
-                const aiPrompt = container.querySelector('.ai-prompt');
-                const aiSubmitBtn = container.querySelector('.ai-submit-btn');
-                const aiResponseDiv = container.querySelector('.ai-response');
-                const aiSpinner = container.querySelector('.loading-spinner');
-                const aiButtonText = container.querySelector('.ai-button-text');
-                const aiResetBtn = container.querySelector('.ai-reset-btn');
-                const aiGeneratePromptBtn = container.querySelector('.ai-generate-prompt-btn');
-
-                aiSubmitBtn.addEventListener('click', () => callGoogleAI(aiPrompt.value, aiResponseDiv, aiSpinner, aiButtonText, aiSubmitBtn));
-                aiResetBtn.addEventListener('click', () => {
-                    aiPrompt.value = '';
-                    aiResponseDiv.textContent = 'Your generated ideas will appear here...';
-                });
-                aiGeneratePromptBtn.addEventListener('click', () => aiPrompt.value = defaultPrompts[page]);
-            }
-
             // --- Elements ---
             const themeToggleBtn = document.getElementById('theme-toggle');
             const darkIcon = document.getElementById('theme-toggle-dark-icon');
@@ -875,7 +709,7 @@
             });
 
             // --- Navigation Click Handling ---
-             document.querySelectorAll('a.nav-item, a.nav-item-mobile, a.nav-ai-link').forEach(anchor => {
+             document.querySelectorAll('a.nav-item, a.nav-item-mobile').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     if(this.getAttribute('href').startsWith('#')) {
                        e.preventDefault();
@@ -912,9 +746,6 @@
                     closeModal();
                 }
             });
-
-            // --- Initialize AI Features ---
-            document.querySelectorAll('.ai-feature-container').forEach(initializeAiFeature);
             
             // --- Initial Load & Resize ---
             const handleResize = () => {
