@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Evidence - Creative Curriculum</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lilita+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        /* Styles for evidence.html to match the main site */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background-color 0.5s ease;
+            overflow-x: hidden;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            cursor: default; 
+        }
+        
+        .site-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        main {
+            flex-grow: 1;
+        }
+
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            z-index: -1;
+            border-radius: 50%;
+            filter: blur(150px);
+            transition: opacity 0.8s ease;
+        }
+
+        body::before { 
+            width: 450px; height: 450px; top: -200px; left: -200px; 
+            background: var(--bg-shape-1);
+            animation: animate-gradient-1 20s infinite alternate;
+            opacity: var(--bg-shape-opacity);
+        }
+        body::after { 
+            width: 550px; height: 550px; bottom: -250px; right: -250px; 
+            background: var(--bg-shape-2);
+            animation: animate-gradient-2 20s infinite alternate;
+            opacity: var(--bg-shape-opacity);
+        }
+
+        @keyframes animate-gradient-1 {
+            0% { background: linear-gradient(135deg, #fb923c, #f97316); }
+            100% { background: linear-gradient(135deg, #facc15, #ea580c); }
+        }
+        @keyframes animate-gradient-2 {
+            0% { background: linear-gradient(135deg, #4f46e5, #a855f7); }
+            100% { background: linear-gradient(135deg, #8b5cf6, #ec4899); }
+        }
+
+        :root {
+            --bg-color: #fffaf0;
+            --header-bg: rgba(255, 250, 240, 0.6);
+            --header-border: rgba(230, 230, 230, 0.7);
+            --nav-text: #6b4f3a;
+            --text-primary: #2d2620;
+            --text-secondary: #6b4f3a;
+            --primary-color: #f97316;
+            --primary-container: #fed7aa;
+            --on-primary-container: #7c2d12;
+            --card-bg: rgba(255, 251, 254, 0.6);
+            --card-border: rgba(209, 196, 221, 0.9);
+            --exp-card-border: rgba(253, 224, 191, 1);
+            --footer-text: #a0a0a0;
+            --bg-shape-opacity: 0.35;
+        }
+
+        html.dark {
+            --bg-color: #1c1917;
+            --header-bg: rgba(28, 25, 23, 0.75);
+            --header-border: rgba(60, 60, 60, 0.8);
+            --nav-text: #d6d3d1;
+            --text-primary: #f5f5f4;
+            --text-secondary: #a8a29e;
+            --primary-color: #fb923c;
+            --primary-container: #7c2d12;
+            --on-primary-container: #fed7aa;
+            --card-bg: rgba(41, 37, 36, 0.6);
+            --card-border: rgba(68, 64, 60, 0.9);
+            --exp-card-border: rgba(68, 64, 60, 0.9);
+            --footer-text: #a8a29e;
+            --bg-shape-opacity: 0.25;
+        }
+
+        h1, h2, h3, h4, h5 { color: var(--text-primary); }
+        .playful-title { 
+            font-family: 'Lilita One', cursive; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        p { color: var(--text-secondary); }
+
+        .card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-radius: 32px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--card-border);
+        }
+        .interactive-sub-card {
+            border: 1px solid var(--exp-card-border);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .interactive-sub-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+    </style>
+</head>
+<body>
+<div class="site-container">
+    <header class="sticky top-0 z-50 shadow-sm" style="background-color: var(--header-bg); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-bottom: 1px solid var(--header-border);">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex-shrink-0 flex items-center gap-2">
+                    <h1 class="text-xl font-bold" style="color: var(--primary-color);">Creative Curriculum</h1>
+                </a>
+                <div class="flex items-center">
+                    <a href="index.html" class="inline-block font-semibold px-4 py-2 sm:px-6 sm:py-2.5 rounded-full transition-transform active:scale-95" style="background-color: var(--primary-container); color: var(--on-primary-container);">
+                        &larr; Back
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-full transition-colors duration-300 ml-2 sm:ml-4" style="color: var(--nav-text)">
+                        <svg id="theme-toggle-dark-icon" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                        <svg id="theme-toggle-light-icon" class="h-5 w-5 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8 relative z-10">
+        <div class="space-y-12">
+            <h2 class="playful-title text-4xl sm:text-5xl md:text-6xl flex items-center justify-center gap-4"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color)"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>Digital Evidence</h2>
+            
+            <div class="card p-6 md:p-12 space-y-16">
+                <!-- Art Section -->
+                <div class="space-y-12">
+                    <h3 class="text-4xl font-bold text-center" style="color: var(--primary-color);">Art</h3>
+                    <div>
+                        <h4 class="text-2xl md:text-3xl font-semibold mb-8 text-center">Pom-Pom Balls (0-2 years)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            <img loading="lazy" src="https://placehold.co/400x400/fca5a5/450a0a?text=Pom-Poms" alt="Art activity placeholder 1" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x400/fca5a5/450a0a?text=Pom-Poms" alt="Art activity placeholder 2" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x400/fca5a5/450a0a?text=Pom-Poms" alt="Art activity placeholder 3" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x400/fca5a5/450a0a?text=Pom-Poms" alt="Art activity placeholder 4" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        </div>
+                    </div>
+                     <div>
+                        <h4 class="text-2xl md:text-3xl font-semibold mb-8 text-center">Pop Sticks Chicks (2-3 years)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            <img loading="lazy" src="https://placehold.co/400x400/fca5a5/450a0a?text=Pop+Sticks" alt="Art activity placeholder 1" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x400/fca5a5/450a0a?text=Pop+Sticks" alt="Art activity placeholder 2" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x400/fca5a5/450a0a?text=Pop+Sticks" alt="Art activity placeholder 3" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x400/fca5a5/450a0a?text=Pop+Sticks" alt="Art activity placeholder 4" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Drama & Puppetry Section -->
+                <div class="space-y-12">
+                    <h3 class="text-4xl font-bold text-center" style="color: var(--primary-color);">Drama & Puppetry</h3>
+                    <div>
+                        <h4 class="text-2xl md:text-3xl font-semibold mb-8 text-center">Cliffy Crab Story Play (2-3 years)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            <img loading="lazy" src="https://placehold.co/400x400/fcd34d/b45309?text=Cliffy+Crab" alt="Drama activity placeholder 1" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x400/fcd34d/b45309?text=Cliffy+Crab" alt="Drama activity placeholder 2" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x400/fcd34d/b45309?text=Cliffy+Crab" alt="Drama activity placeholder 3" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x400/fcd34d/b45309?text=Cliffy+Crab" alt="Drama activity placeholder 4" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-2xl md:text-3xl font-semibold mb-8 text-center">Game with Cups Role-Play (3-5 years)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            <img loading="lazy" src="https://placehold.co/400x400/fcd34d/b45309?text=Cups+Role-Play" alt="Drama activity placeholder 1" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x400/fcd34d/b45309?text=Cups+Role-Play" alt="Drama activity placeholder 2" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x400/fcd34d/b45309?text=Cups+Role-Play" alt="Drama activity placeholder 3" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x400/fcd34d/b45309?text=Cups+Role-Play" alt="Drama activity placeholder 4" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Movement & Music Section -->
+                <div class="space-y-12">
+                    <h3 class="text-4xl font-bold text-center" style="color: var(--primary-color);">Movement & Music</h3>
+                    <div>
+                        <h4 class="text-2xl md:text-3xl font-semibold mb-8 text-center">Homemade Instrument Band (3-5 years)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            <img loading="lazy" src="https://placehold.co/400x500/fed7aa/7c2d12?text=Instrument+Band" alt="Music activity placeholder 1" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/fed7aa/7c2d12?text=Instrument+Band" alt="Music activity placeholder 2" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/fed7aa/7c2d12?text=Instrument+Band" alt="Music activity placeholder 3" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/fed7aa/7c2d12?text=Instrument+Band" alt="Music activity placeholder 4" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Language & Literacy Section -->
+                <div class="space-y-12">
+                    <h3 class="text-4xl font-bold text-center" style="color: var(--primary-color);">Language & Literacy</h3>
+                    <div>
+                        <h4 class="text-2xl md:text-3xl font-semibold mb-8 text-center">The Class Story Creation with Caterpillar Craft (3–5 years)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            <img loading="lazy" src="https://placehold.co/400x500/a7f3d0/064e3b?text=Caterpillar+Craft" alt="Literacy activity placeholder 1" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/a7f3d0/064e3b?text=Caterpillar+Craft" alt="Literacy activity placeholder 2" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/a7f3d0/064e3b?text=Caterpillar+Craft" alt="Literacy activity placeholder 3" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/a7f3d0/064e3b?text=Caterpillar+Craft" alt="Literacy activity placeholder 4" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Science Section -->
+                <div class="space-y-12">
+                    <h3 class="text-4xl font-bold text-center" style="color: var(--primary-color);">Science</h3>
+                    <div>
+                        <h4 class="text-2xl md:text-3xl font-semibold mb-8 text-center">Magnet Discovery (2–3 years)</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
+                            <img loading="lazy" src="https://placehold.co/400x500/bae6fd/0c4a6e?text=Magnets" alt="Science activity placeholder 1" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/bae6fd/0c4a6e?text=Magnets" alt="Science activity placeholder 2" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/bae6fd/0c4a6e?text=Magnets" alt="Science activity placeholder 3" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-2xl md:text-3xl font-semibold mb-8 text-center">Sink or Float Investigation (3–5 years)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            <img loading="lazy" src="https://placehold.co/400x500/bae6fd/0c4a6e?text=Sink+or+Float" alt="Science activity placeholder 1" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/bae6fd/0c4a6e?text=Sink+or+Float" alt="Science activity placeholder 2" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/bae6fd/0c4a6e?text=Sink+or+Float" alt="Science activity placeholder 3" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/bae6fd/0c4a6e?text=Sink+or+Float" alt="Science activity placeholder 4" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Engineering Section -->
+                <div class="space-y-12">
+                    <h3 class="text-4xl font-bold text-center" style="color: var(--primary-color);">Engineering</h3>
+                     <div>
+                        <h4 class="text-2xl md:text-3xl font-semibold mb-8 text-center">Soft Block Stacking (0–2 years)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            <img loading="lazy" src="https://placehold.co/400x500/e5e7eb/1f2937?text=Block+Stacking" alt="Engineering activity placeholder 1" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/e5e7eb/1f2937?text=Block+Stacking" alt="Engineering activity placeholder 2" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/e5e7eb/1f2937?text=Block+Stacking" alt="Engineering activity placeholder 3" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/e5e7eb/1f2937?text=Block+Stacking" alt="Engineering activity placeholder 4" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-2xl md:text-3xl font-semibold mb-8 text-center">Bridge Building Challenge (3–5 years)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            <img loading="lazy" src="https://placehold.co/400x500/e5e7eb/1f2937?text=Bridge+Building" alt="Engineering activity placeholder 1" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/e5e7eb/1f2937?text=Bridge+Building" alt="Engineering activity placeholder 2" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/e5e7eb/1f2937?text=Bridge+Building" alt="Engineering activity placeholder 3" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/e5e7eb/1f2937?text=Bridge+Building" alt="Engineering activity placeholder 4" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technologies Section -->
+                <div class="space-y-12">
+                    <h3 class="text-4xl font-bold text-center" style="color: var(--primary-color);">Technologies</h3>
+                     <div>
+                        <h4 class="text-2xl md:text-3xl font-semibold mb-8 text-center">Photo Exploration (2–3 years)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            <img loading="lazy" src="https://placehold.co/400x500/d1d5db/1f2937?text=Photo+Fun" alt="Tech activity placeholder 1" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/d1d5db/1f2937?text=Photo+Fun" alt="Tech activity placeholder 2" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/d1d5db/1f2937?text=Photo+Fun" alt="Tech activity placeholder 3" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/d1d5db/1f2937?text=Photo+Fun" alt="Tech activity placeholder 4" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-2xl md:text-3xl font-semibold mb-8 text-center">Digital Story Creation (3–5 years)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            <img loading="lazy" src="https://placehold.co/400x500/d1d5db/1f2937?text=Digital+Story" alt="Tech activity placeholder 1" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/d1d5db/1f2937?text=Digital+Story" alt="Tech activity placeholder 2" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/d1d5db/1f2937?text=Digital+Story" alt="Tech activity placeholder 3" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/d1d5db/1f2937?text=Digital+Story" alt="Tech activity placeholder 4" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mathematics Section -->
+                <div class="space-y-12">
+                    <h3 class="text-4xl font-bold text-center" style="color: var(--primary-color);">Mathematics and Numeracy</h3>
+                     <div>
+                        <h4 class="text-2xl md:text-3xl font-semibold mb-8 text-center">Shape Hunt (2–3 years)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            <img loading="lazy" src="https://placehold.co/400x500/fecaca/7f1d1d?text=Shape+Hunt" alt="Math activity placeholder 1" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/fecaca/7f1d1d?text=Shape+Hunt" alt="Math activity placeholder 2" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/fecaca/7f1d1d?text=Shape+Hunt" alt="Math activity placeholder 3" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/fecaca/7f1d1d?text=Shape+Hunt" alt="Math activity placeholder 4" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-2xl md:text-3xl font-semibold mb-8 text-center">Pattern Making (3–5 years)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            <img loading="lazy" src="https://placehold.co/400x500/fecaca/7f1d1d?text=Pattern+Making" alt="Math activity placeholder 1" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/fecaca/7f1d1d?text=Pattern+Making" alt="Math activity placeholder 2" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/fecaca/7f1d1d?text=Pattern+Making" alt="Math activity placeholder 3" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/fecaca/7f1d1d?text=Pattern+Making" alt="Math activity placeholder 4" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HASS Section -->
+                <div class="space-y-12">
+                    <h3 class="text-4xl font-bold text-center" style="color: var(--primary-color);">Humanities and social sciences</h3>
+                     <div>
+                        <h4 class="text-2xl md:text-3xl font-semibold mb-8 text-center">Family Photo Sharing (0–2 years)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            <img loading="lazy" src="https://placehold.co/400x500/e9d5ff/581c87?text=Family+Photos" alt="HASS activity placeholder 1" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/e9d5ff/581c87?text=Family+Photos" alt="HASS activity placeholder 2" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/e9d5ff/581c87?text=Family+Photos" alt="HASS activity placeholder 3" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/e9d5ff/581c87?text=Family+Photos" alt="HASS activity placeholder 4" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-2xl md:text-3xl font-semibold mb-8 text-center">Map-Making (3–5 years)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            <img loading="lazy" src="https://placehold.co/400x500/e9d5ff/581c87?text=Map-Making" alt="HASS activity placeholder 1" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/e9d5ff/581c87?text=Map-Making" alt="HASS activity placeholder 2" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/e9d5ff/581c87?text=Map-Making" alt="HASS activity placeholder 3" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/e9d5ff/581c87?text=Map-Making" alt="HASS activity placeholder 4" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Integrated Curriculum Section -->
+                <div class="space-y-12">
+                    <h3 class="text-4xl font-bold text-center" style="color: var(--primary-color);">Integrated Curriculum</h3>
+                     <div>
+                        <h4 class="text-2xl md:text-3xl font-semibold mb-8 text-center">Build a Paper Tower (2–3 years)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            <img loading="lazy" src="https://placehold.co/400x500/fef08a/854d0e?text=Paper+Tower" alt="Integrated activity placeholder 1" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/fef08a/854d0e?text=Paper+Tower" alt="Integrated activity placeholder 2" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/fef08a/854d0e?text=Paper+Tower" alt="Integrated activity placeholder 3" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/fef08a/854d0e?text=Paper+Tower" alt="Integrated activity placeholder 4" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-2xl md:text-3xl font-semibold mb-8 text-center">Rolling Cars on Ramps (3–5 years)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            <img loading="lazy" src="https://placehold.co/400x500/fef08a/854d0e?text=Car+Ramps" alt="Integrated activity placeholder 1" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/fef08a/854d0e?text=Car+Ramps" alt="Integrated activity placeholder 2" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/fef08a/854d0e?text=Car+Ramps" alt="Integrated activity placeholder 3" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="https://placehold.co/400x500/fef08a/854d0e?text=Car+Ramps" alt="Integrated activity placeholder 4" class="w-full h-auto object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card p-6 md:p-12">
+                <h3 class="text-4xl font-bold mb-8 text-center" style="color: var(--primary-color);">Critical Reflection</h3>
+                <div class="space-y-12">
+                    <div class="p-6 rounded-2xl interactive-sub-card">
+                        <h4 class="text-3xl font-bold mb-4">Art</h4>
+                        <div class="space-y-6 pl-6 border-l-4" style="border-color: var(--primary-color);">
+                            <div>
+                                <h5 class="font-bold text-2xl mb-2">Popstick Chick Puppet Play (2–3 years)</h5>
+                                <p class="mb-3">The Popstick Chick Puppet Play worked well because the children were eager to use their puppets in storytelling. They made chick sounds, moved the puppets around, and created simple stories about what their chick was doing. The activity encouraged children to use their voices, explore character roles, and build confidence in sharing ideas (Anders, 2021). Even children who were usually quiet became more involved, showing the activity’s value for communication development.</p>
+                                <p>One improvement would be to provide a small puppet theatre or stage. This would give the children a space to focus their storytelling and help organise their play. I would also allow more time for children to plan and practise their stories before performing them for others.</p>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-2xl mb-2">Pom-Pom Balls (0–2 years)</h5>
+                                <p class="mb-3">The Pom-Pom Balls activity worked well because the babies were very engaged in touching, picking up, and exploring the soft pom-poms. They showed curiosity and used their hands to grasp and move the pom-poms, which supported sensory learning and fine motor development (Howard & Mayesky, 2022).</p>
+                                <p>One improvement would be to introduce small containers or baskets so babies could practise filling, emptying, and transferring the pom-poms. This would extend the activity and give more variety, keeping the babies interested for longer. I would also add simple language or songs about colours and textures to support communication.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 rounded-2xl interactive-sub-card">
+                        <h4 class="text-3xl font-bold mb-4">Drama & Puppetry</h4>
+                        <div class="space-y-6 pl-6 border-l-4" style="border-color: var(--primary-color);">
+                            <div>
+                                <h5 class="font-bold text-2xl mb-2">Cliffy Crab Story Play (2–3 years)</h5>
+                                <p class="mb-3">The Cliffy Crab Story Play went well because the children enjoyed moving like crabs, using their hands as pincers and walking sideways. They showed imagination by creating little stories about what the crab was doing and where it was going. The activity encouraged children to work together, take turns, and use language to share ideas (Howard & Mayesky, 2022).</p>
+                                <p>One thing I would improve is to provide simple props, like blue fabric for the sea or shells to inspire more storytelling ideas. Next time, I would also encourage the children to act out a shared story as a group, helping to build collaboration and shared meaning.</p>
+                            </div>
+                             <div>
+                                <h5 class="font-bold text-2xl mb-2">Game with Cups Role-Play (3–5 years)</h5>
+                                <p class="mb-3">The Game with Cups Role-Play was successful because the children enjoyed pretending to serve tea or act as customers. They showed imagination, used rich language, and worked together to build their play scenes (Wanerman, 2010). The activity supported social development, as children practised turn-taking and negotiating roles during the play.</p>
+                                <p>To improve this experience, I would add simple role cards (e.g., customer, server) to give clearer guidance and reduce moments when children became too excited or found it hard to share. I would also offer more props (like plates or menus) to help extend the pretend scenarios and encourage deeper storytelling.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 rounded-2xl interactive-sub-card">
+                        <h4 class="text-3xl font-bold mb-4">Movement and Music</h4>
+                        <div class="space-y-6 pl-6 border-l-4" style="border-color: var(--primary-color);">
+                            <div>
+                                <h5 class="font-bold text-2xl mb-2">Homemade Instrument Band (3–5 years)</h5>
+                                <p class="mb-3">The Homemade Instrument Band was similarly interactive. Children enjoyed building instruments from recyclables and enjoyed exploring various sounds. Play together encouraged turn-taking, listening, and cooperation (Howard & Mayesky, 2022). It also opened a window for children to find rhythm, tempo, and loudness in a fun manner. I would tape the performance and then play it back to the children so that they can listen to themselves playing. I would provide them with some control in choosing their own song or making their own rhythms for purposes of ownership and creativity.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 rounded-2xl interactive-sub-card">
+                        <h4 class="text-3xl font-bold mb-4">Language and Literacy</h4>
+                        <div class="space-y-6 pl-6 border-l-4" style="border-color: var(--primary-color);">
+                             <div>
+                                <h5 class="font-bold text-2xl mb-2">Puppet Storytelling (2–3 years)</h5>
+                                <p class="mb-3">The Puppet Storytelling activity worked, as children loved to bring stories to life through the puppets. They made animal sounds, acted out movements, and added their own ideas. Even the shy children contributed, showing how puppets can lead to confidence and communication (Howard & Mayesky, 2022).</p>
+                                <p>An improvement on this activity would be to provide a small puppet stage or backdrop. This would focus the play, structure the story, and enrich the experience for both the participating children and observers.</p>
+                            </div>
+                             <div>
+                                <h5 class="font-bold text-2xl mb-2">The Class Story Creation with Caterpillar Craft (3–5 years)</h5>
+                                <p class="mb-3">The Class Story Creation with Caterpillar Craft worked well. Children shared ideas for characters and settings, listened to each other, and worked together to make a complete story. They enjoyed seeing their ideas on paper and creating colorful caterpillar crafts using paper circles, glue, and decorations. This activity supported creativity, teamwork, and fine motor skills (Howard & Mayesky, 2022).</p>
+                                <p>An improvement would be to make the story in smaller steps. Children could first work in pairs or small groups, then join together. This would help them stay focused, take part actively, and make sure everyone’s ideas were included.</p>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="p-6 rounded-2xl interactive-sub-card">
+                        <h4 class="text-3xl font-bold mb-4">Science</h4>
+                        <div class="space-y-6 pl-6 border-l-4" style="border-color: var(--primary-color);">
+                             <div>
+                                <h5 class="font-bold text-2xl mb-2">Magnet Discovery (2–3 years)</h5>
+                                <p class="mb-3">The Magnet Discovery activity worked well because the children were curious and eager to test different objects. They enjoyed predicting whether an item would stick to the magnet and were excited to check their results. The activity enabled language acquisition, problem-solving, and fine motor skills (Howard & Mayesky, 2022).</p>
+                                <p>An improvement for this activity would be to provide more types of objects, such as natural materials such as leaves or stones and man-made objects such as keys or paper clips. This would give children a larger ability to compare and sort, increasing the task and encouraging further investigation.</p>
+                            </div>
+                             <div>
+                                <h5 class="font-bold text-2xl mb-2">Sink or Float Investigation (3–5 years)</h5>
+                                <p class="mb-3">The Sink or Float Investigation also worked well. The children were engaged in testing each object and recording their results using drawings and symbols. This supported their observation skills, sorting abilities, and early data recording.</p>
+                                <p>An improvement for this activity would be the inclusion of a short group discussion before the experiment when children can make predictions and a second discussion after testing when outcomes are contrasted. This will require children to justify their thoughts, listen, and build a richer understanding of the concepts being dealt with.</p>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="p-6 rounded-2xl interactive-sub-card">
+                        <h4 class="text-3xl font-bold mb-4">Engineering</h4>
+                        <div class="space-y-6 pl-6 border-l-4" style="border-color: var(--primary-color);">
+                            <div>
+                                <h5 class="font-bold text-2xl mb-2">Soft Block Stacking (0–2 years)</h5>
+                                <p class="mb-3">Soft Block Stacking was successful because the babies were highly engaged in touching, stacking, and knocking over the foam blocks. They tested the cause and effect by seeing what happened when blocks were stacked higher or toppled over. The activity challenged their sensory growth, fine motor skills, and pre-concept of balance (Howard & Mayesky, 2022).</p>
+                            </div>
+                             <div>
+                                <h5 class="font-bold text-2xl mb-2">Bridge Building Challenge (3–5 years)</h5>
+                                <p class="mb-3">The Bridge Building Challenge activity was also successful. The children were eager to use blocks, straws, and sticks to design bridges. They tested their creations with toy cars or animals and showed persistence by making adjustments when the bridges collapsed. This activity supported problem-solving, teamwork, and creative thinking (Zabawa, 2019).</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 rounded-2xl interactive-sub-card">
+                        <h4 class="text-3xl font-bold mb-4">Technologies</h4>
+                        <div class="space-y-6 pl-6 border-l-4" style="border-color: var(--primary-color);">
+                            <div>
+                                <h5 class="font-bold text-2xl mb-2">Photo Exploration (2–3 years)</h5>
+                                <p class="mb-3">The Photo Exploration activity was effective because the children enjoyed capturing photos with the child-safe camera. They chose objects and people to take photos of carefully, pressed the button gently, and displayed their photos proudly to others. This activity enhanced their observation skills, fine motor control, and communication (NAEYC, n.d.).</p>
+                                <p>An improvement for this activity would be to include a theme challenge, such as "find something that is red" or "take a picture of a circle." This would help focus children's vision, scrutinize their environment more closely, and think about in a creative sense what to take a picture of.</p>
+                            </div>
+                             <div>
+                                <h5 class="font-bold text-2xl mb-2">Digital Story Creation (3–5 years)</h5>
+                                <p class="mb-3">The Digital Story Creation activity also worked well because the children enjoyed creating their own stories using images and voice recordings. They worked together to choose characters and events, recorded their voices, and listened to the finished stories. This activity encouraged imagination, teamwork, and a sense of pride in their work (Howard & Mayesky, 2022).</p>
+                                <p>An improvement for this activity would be to provide props or dress-up clothes so children could act out their stories before recording them. This would combine technology with dramatic play and give children more ways to share and develop their ideas.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 rounded-2xl interactive-sub-card">
+                        <h4 class="text-3xl font-bold mb-4">Mathematics and Numeracy</h4>
+                        <div class="space-y-6 pl-6 border-l-4" style="border-color: var(--primary-color);">
+                            <div>
+                                <h5 class="font-bold text-2xl mb-2">Shape Hunt (2–3 years)</h5>
+                                <p class="mb-3">Shape Hunt activity was successful because children enjoyed hunting for shapes inside and outside the classroom. They were thrilled to recognize shapes they had discovered using the cards and learned to recognize circles, squares, and triangles. The activity promoted the development of observation skills, vocabulary, and early recognition of shapes (McDonald, 2019).</p>
+                                <p>An improvement suggestion for this activity is the addition of more shapes, such as rectangles, ovals, and stars. This would give children more exposure to new shapes to learn and practice matching and identifying different shapes.</p>
+                            </div>
+                             <div>
+                                <h5 class="font-bold text-2xl mb-2">Pattern Making (3–5 years)</h5>
+                                <p class="mb-3">Pattern Making activity was successful as children enjoyed making and extending patterns with beads, blocks, and natural materials. A few of the children invented their own patterns, which encouraged creativity, sequencing, and problem-solving (Littledyke, 2014).</p>
+                                <p>An alternative to this activity would be to give small tasks, i.e., "make a repeating pattern using three colors or shapes." This would test children further to anticipate and create more complex pattern-making abilities.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 rounded-2xl interactive-sub-card">
+                        <h4 class="text-3xl font-bold mb-4">Humanities and social sciences</h4>
+                        <div class="space-y-6 pl-6 border-l-4" style="border-color: var(--primary-color);">
+                            <div>
+                                <h5 class="font-bold text-2xl mb-2">Family Photo Sharing (0–2 years)</h5>
+                                <p class="mb-3">The Family Photo Sharing activity worked well because the babies enjoyed looking at familiar faces in the photos. They listened with interest when educators named family members and described their roles. This supported early language skills, a sense of belonging, and social connection (Stonehouse, 2012). It also helped strengthen relationships between the child, educator, and family.</p>
+                                <p>An improvement would be to invite families to share photos of special events or cultural celebrations. This would allow children to see and hear about their own traditions and help educators introduce and discuss different cultures within the group.</p>
+                            </div>
+                             <div>
+                                <h5 class="font-bold text-2xl mb-2">Map-Making (3–5 years)</h5>
+                                <p class="mb-3">The Map-Making activity worked because kids enjoyed drawing playground maps and dropping symbols for swings, sandpits, and other features. This supported spatial awareness, creativity, and problem-solving (Howard & Mayesky, 2022).</p>
+                                <p>An improvement for this activity would be to take children on a short “mapping walk” before they start drawing. This would help them notice more details in the environment and include them in their maps.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 rounded-2xl interactive-sub-card">
+                        <h4 class="text-3xl font-bold mb-4">Integrated curriculum (STEM, STEAM, STREAM & STEMIE)</h4>
+                        <div class="space-y-6 pl-6 border-l-4" style="border-color: var(--primary-color);">
+                            <div>
+                                <h5 class="font-bold text-2xl mb-2">Build a Paper Tower (2–3 years)</h5>
+                                <p class="mb-3">The Build a Paper Tower activity succeeded due to children enjoying folding and building paper into tall towers. They tried out how to keep the paper stable and improvised when the tower collapsed. This enhanced problem-solving, hand–eye coordination, and early engineering capabilities in them (Fleer & Raban, n.d.).</p>
+                                <p>One modification of this exercise is to give children a range of paper material, for example, cardboard, newspaper, and tissue paper. This would enable them to see how each of these different materials affects the strength and stability of the tower and think about more and attempt more.</p>
+                            </div>
+                             <div>
+                                <h5 class="font-bold text-2xl mb-2">Rolling Cars on Ramps (3–5 years)</h5>
+                                <p class="mb-3">Rolling Cars on Ramps was a success since kids loved creating ramps using cardboard and tubes, rolling the cars, and watching how far they travel. They learned that changing the height or slope of the ramp makes the cars travel at different speeds. This embedded scientific thinking, prediction, and collaboration (Howard & Mayesky, 2022).</p>
+                                <p>An improvement for this activity would be to provide a measuring tape so that children are able to measure and track the distance traveled by the cars. This would increase early numeracy and enable them to compare, which will result in discussion and critical thinking.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="mt-12" style="background-color: var(--header-bg); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-top: 1px solid var(--header-border);">
+        <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center" style="color: var(--footer-text);">
+            <p>&copy; 2025 Assessment Website Part A & B</p>
+            <p class="text-sm">Designed for an early childhood education assignment.</p>
+        </div>
+    </footer>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+        const htmlEl = document.documentElement;
+
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlEl.classList.add('dark');
+            lightIcon.classList.remove('hidden');
+            darkIcon.classList.add('hidden');
+        } else {
+            lightIcon.classList.add('hidden');
+            darkIcon.classList.remove('hidden');
+        }
+
+        themeToggleBtn?.addEventListener('click', () => {
+            htmlEl.classList.toggle('dark');
+            const isDarkMode = htmlEl.classList.contains('dark');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            lightIcon.classList.toggle('hidden', !isDarkMode);
+            darkIcon.classList.toggle('hidden', isDarkMode);
+        });
+    });
+</script>
+</body>
+</html>
