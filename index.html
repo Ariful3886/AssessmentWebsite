@@ -11,17 +11,13 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
         /* * ===============================================
-         * ASSESSMENT WEBSITE - V13 (UPDATED)
+         * ASSESSMENT WEBSITE - V19 (OPAQUE DROPDOWN)
          * ===============================================
-         * This version updates reflections, adds placeholders,
-         * and refines UI animations and styles.
+         * This version removes transparency from the dropdown
+         * menu for maximum visibility.
          *
          * Key Updates:
-         * 1.  Updated Critical Reflections: The evidence page now contains the new, detailed reflections.
-         * 2.  New Placeholder Images: Added image galleries for all new reflection topics.
-         * 3.  Modern Splash Screen: Implemented a staggered, 60fps text animation.
-         * 4.  Refined Dropdown Hover: Removed the background highlight for a cleaner look.
-         * 5.  Custom Modal Scrollbar: Added a minimal, accent-colored scrollbar to the pop-up.
+         * 1.  Opaque Dropdown: The dropdown menu is now fully opaque.
          */
 
         html {
@@ -34,11 +30,7 @@
             overflow-x: hidden;
             background-color: var(--bg-color);
             color: var(--text-primary);
-            cursor: none; /* Hide default cursor */
-        }
-        
-        body.loading {
-            overflow: hidden;
+            cursor: default; 
         }
         
         .site-container {
@@ -47,10 +39,6 @@
             min-height: 100vh;
             opacity: 1;
             transition: opacity 0.5s ease-in-out;
-        }
-
-        body.loading .site-container {
-            opacity: 0;
         }
         
         main {
@@ -95,17 +83,18 @@
 
         :root {
             --bg-color: #fffaf0;
-            --header-bg: rgba(255, 255, 255, 0.5);
-            --header-border: rgba(230, 230, 230, 0.4);
+            --header-bg: rgba(255, 250, 240, 0.6);
+            --header-border: rgba(230, 230, 230, 0.7);
             --nav-text: #6b4f3a;
             --text-primary: #2d2620;
             --text-secondary: #6b4f3a;
             --primary-color: #f97316;
             --primary-container: #fed7aa;
             --on-primary-container: #7c2d12;
-            --card-bg: rgba(255, 251, 254, 0.7);
-            --card-border: rgba(230, 224, 236, 0.7);
-            --exp-card-border: rgba(255, 237, 213, 0.8);
+            --card-bg: rgba(255, 251, 254, 0.6);
+            --card-border: rgba(209, 196, 221, 0.9);
+            --dropdown-bg: #fff8f0;
+            --exp-card-border: rgba(253, 224, 191, 1);
             --footer-text: #a0a0a0;
             --bg-shape-opacity: 0.35;
         }
@@ -113,16 +102,17 @@
         html.dark {
             --bg-color: #1c1917;
             --header-bg: rgba(28, 25, 23, 0.75);
-            --header-border: rgba(60, 60, 60, 0.5);
+            --header-border: rgba(60, 60, 60, 0.8);
             --nav-text: #d6d3d1;
             --text-primary: #f5f5f4;
             --text-secondary: #a8a29e;
             --primary-color: #fb923c;
             --primary-container: #7c2d12;
             --on-primary-container: #fed7aa;
-            --card-bg: rgba(41, 37, 36, 0.5);
-            --card-border: rgba(68, 64, 60, 0.7);
-            --exp-card-border: rgba(68, 64, 60, 0.8);
+            --card-bg: rgba(41, 37, 36, 0.6);
+            --card-border: rgba(68, 64, 60, 0.9);
+            --dropdown-bg: #2d2620;
+            --exp-card-border: rgba(68, 64, 60, 0.9);
             --footer-text: #a8a29e;
             --bg-shape-opacity: 0.25;
         }
@@ -164,8 +154,8 @@
 
         .card {
             background-color: var(--card-bg);
-            backdrop-filter: blur(32px);
-            -webkit-backdrop-filter: blur(32px);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             border-radius: 32px;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             border: 1px solid var(--card-border);
@@ -222,22 +212,21 @@
             visibility: hidden;
             opacity: 0;
             position: absolute;
-            top: calc(100% + 5px);
+            top: calc(100% + 15px);
             left: 50%;
             transform: translateX(-50%) scale(0.95);
             padding-top: 0.75rem;
             z-index: 100;
             transition: visibility 0.3s, opacity 0.3s, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
         }
         .dropdown-content {
-            background-color: var(--header-bg);
-            backdrop-filter: blur(32px);
-            -webkit-backdrop-filter: blur(32px);
+            background-color: var(--dropdown-bg);
             border: 1px solid var(--header-border);
             border-radius: 24px;
             box-shadow: 0 8px 30px rgba(0,0,0,0.12);
             padding: 0.5rem;
-            min-width: 220px;
+            min-width: 240px;
         }
         .dropdown:hover .dropdown-menu {
             visibility: visible;
@@ -273,75 +262,6 @@
             color: var(--on-primary-container);
         }
         
-        /* Custom Cursor */
-        #cursor-dot, #cursor-outline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 999999;
-        }
-        #cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--primary-color);
-            transition: transform 0.2s ease-out;
-        }
-        #cursor-outline {
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--primary-color);
-            transition: transform 0.15s ease-out, opacity 0.2s ease-out, width 0.2s, height 0.2s;
-        }
-        body:hover a, body:hover button {
-            cursor: none;
-        }
-        #cursor-outline.hover {
-            transform: translate(-50%, -50%) scale(1.5);
-            opacity: 0.5;
-        }
-        #cursor-outline.click {
-            transform: translate(-50%, -50%) scale(0.8);
-            animation: ripple 0.5s linear forwards;
-        }
-        @keyframes ripple {
-            0% { width: 40px; height: 40px; opacity: 0.8; }
-            100% { width: 100px; height: 100px; opacity: 0; }
-        }
-
-        /* Splash Screen Styles */
-        #splash-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg-color);
-            z-index: 10000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.8s ease-out 1.5s, visibility 0.8s 1.5s;
-        }
-        #splash-screen.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-        #splash-logo .playful-title span {
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(20px) scale(0.8);
-            animation: letter-reveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-        @keyframes letter-reveal {
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
         /* Modal Styles */
         .modal-overlay {
             position: fixed;
@@ -441,17 +361,7 @@
 
     </style>
 </head>
-<body class="loading">
-
-<div id="cursor-dot"></div>
-<div id="cursor-outline"></div>
-
-<div id="splash-screen">
-    <div id="splash-logo" class="flex flex-col items-center gap-4">
-        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color); animation: letter-reveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path><path d="m15.7 15.7-1.4-1.4"></path><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path><path d="M12 22a4.5 4.5 0 0 0 4.5-4.5c0-2.49-2.01-4.5-4.5-4.5s-4.5 2.01-4.5 4.5A4.5 4.5 0 0 0 12 22z"></path></svg>
-        <h1 class="playful-title text-4xl" style="color: var(--primary-color);"></h1>
-    </div>
-</div>
+<body>
 
 <div class="site-container">
     <header class="sticky top-0 z-50 shadow-sm transition-colors duration-500" style="background-color: var(--header-bg); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-bottom: 1px solid var(--header-border);">
@@ -684,6 +594,15 @@
                     </section>
                 </div>
             </div>
+            <div class="card p-6 md:p-12 animate-on-scroll">
+                <h3 class="text-4xl font-bold mb-6 text-center" style="color: var(--primary-color);">Our Head, Shoulders, Knees and Toes Dance:</h3>
+                <div class="aspect-w-16 rounded-2xl overflow-hidden shadow-lg">
+                    <video controls preload="metadata" class="w-full h-full">
+                        <source src="videos/head.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
         </div>
 
         <!-- ==================== LANGUAGE & LITERACY PAGE ==================== -->
@@ -724,7 +643,7 @@
                      <section>
                         <h4 class="text-2xl md:text-3xl font-bold mb-6">Age Group: 3–5 years</h4>
                         <div class="grid md:grid-cols-2 gap-8">
-                            <div class="p-6 rounded-2xl interactive-sub-card"><h5 class="font-bold text-xl mb-2">Class Story Creation with Caterpillar Craft</h5><p>Children work together to create a story while the teacher writes it down. They then make colorful caterpillar crafts using paper circles, glue, and decorations to illustrate the story. This activity supports creativity, sequencing, teamwork, and fine motor development (Howard & Mayesky, 2022).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF Outcome 5:</b> Children create and share texts in different formats.</p></div>
+                            <div class="p-6 rounded-2xl interactive-sub-card"><h5 class="font-bold text-xl mb-2">Class Story Creation with Caterpillar Craft</h5><p>Children work together to create a story while the teacher writes it down. They then make colorful caterpillar crafts using paper circles, glue, and decorations to illustrate the story. This activity supports creativity, sequencing, teamwork, and fine motor skills (Howard & Mayesky, 2022).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF Outcome 5:</b> Children create and share texts in different formats.</p></div>
                             <div class="p-6 rounded-2xl interactive-sub-card"><h5 class="font-bold text-xl mb-2">Rhyming Word Hunt</h5><p>Children find objects that rhyme with a given word (e.g., “cat”—find” “hat”). Develops sound awareness and playful use of language (Schiller, n.d.).</p><p class="text-sm italic mt-3 pt-3 border-t" style="border-color: var(--card-border);"><b>EYLF Outcome 5:</b> Children develop phonological awareness.</p></div>
                         </div>
                     </section>
@@ -1063,10 +982,10 @@
                     <div class="mb-12">
                         <h4 class="text-2xl md:text-3xl font-semibold mb-8 text-center">Homemade Instrument Band (Age Group: 3-5 years)</h4>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                            <img loading="lazy" src="https://placehold.co/400x400/fed7aa/7c2d12?text=Music+1" alt="Music activity placeholder 1" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
-                            <img loading="lazy" src="https://placehold.co/400x400/fed7aa/7c2d12?text=Music+2" alt="Music activity placeholder 2" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
-                            <img loading="lazy" src="https://placehold.co/400x400/fed7aa/7c2d12?text=Music+3" alt="Music activity placeholder 3" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
-                            <img loading="lazy" src="https://placehold.co/400x400/fed7aa/7c2d12?text=Music+4" alt="Music activity placeholder 4" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="images/mm1.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fed7aa/7c2d12?text=Music+1';" alt="Music activity placeholder 1" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="images/mm2.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fed7aa/7c2d12?text=Music+2';" alt="Music activity placeholder 2" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="images/mm3.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fed7aa/7c2d12?text=Music+3';" alt="Music activity placeholder 3" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
+                            <img loading="lazy" src="images/mm4.jpg" onerror="this.onerror=null;this.src='https://placehold.co/400x400/fed7aa/7c2d12?text=Music+4';" alt="Music activity placeholder 4" class="w-full h-auto aspect-square object-cover rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105">
                         </div>
                     </div>
                 </div>
@@ -1527,45 +1446,6 @@
             const hash = window.location.hash.substring(1);
             const pageTarget = hash || 'home';
             showPage(`page-${pageTarget}`, document.querySelector(`.nav-item[href="#${pageTarget}"]`));
-
-            const splashScreen = document.getElementById('splash-screen');
-            const splashTitle = document.querySelector('#splash-logo .playful-title');
-            const titleText = "Creative Curriculum";
-            splashTitle.innerHTML = titleText.split('').map((letter, i) => `<span style="animation-delay: ${i * 50 + 200}ms">${letter === ' ' ? '&nbsp;' : letter}</span>`).join('');
-
-            setTimeout(() => {
-                splashScreen.classList.add('hidden');
-                document.body.classList.remove('loading');
-            }, 2500); 
-            
-            // Custom Cursor Logic
-            const cursorDot = document.querySelector("#cursor-dot");
-            const cursorOutline = document.querySelector("#cursor-outline");
-
-            window.addEventListener("mousemove", function (e) {
-                const posX = e.clientX;
-                const posY = e.clientY;
-
-                cursorDot.style.left = `${posX}px`;
-                cursorDot.style.top = `${posY}px`;
-
-                cursorOutline.animate({
-                    left: `${posX}px`,
-                    top: `${posY}px`
-                }, { duration: 500, fill: "forwards" });
-            });
-
-            document.querySelectorAll('a, button').forEach(el => {
-                el.addEventListener('mouseenter', () => cursorOutline.classList.add('hover'));
-                el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hover'));
-            });
-
-            document.addEventListener('mousedown', () => {
-                cursorOutline.classList.add('click');
-            });
-            document.addEventListener('mouseup', () => {
-                cursorOutline.classList.remove('click');
-            });
 
             // Scroll to top button visibility
             window.addEventListener('scroll', () => {
